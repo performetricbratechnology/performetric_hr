@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\darri\\Documents\\Performetric HR\\Performetric.API\\Performetric.API.csproj": {}
+    "C:\\Users\\darri\\Documents\\Performetric HR\\backend\\Performetric.API\\Performetric.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\darri\\Documents\\Performetric HR\\Performetric.API\\Performetric.API.csproj": {
+    "C:\\Users\\darri\\Documents\\Performetric HR\\backend\\Performetric.API\\Performetric.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\darri\\Documents\\Performetric HR\\Performetric.API\\Performetric.API.csproj",
+        "projectUniqueName": "C:\\Users\\darri\\Documents\\Performetric HR\\backend\\Performetric.API\\Performetric.API.csproj",
         "projectName": "Performetric.API",
-        "projectPath": "C:\\Users\\darri\\Documents\\Performetric HR\\Performetric.API\\Performetric.API.csproj",
+        "projectPath": "C:\\Users\\darri\\Documents\\Performetric HR\\backend\\Performetric.API\\Performetric.API.csproj",
         "packagesPath": "C:\\Users\\darri\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\darri\\Documents\\Performetric HR\\Performetric.API\\obj\\",
+        "outputPath": "C:\\Users\\darri\\Documents\\Performetric HR\\backend\\Performetric.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\darri\\AppData\\Roaming\\NuGet\\NuGet.Config"
