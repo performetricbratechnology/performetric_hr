@@ -5,7 +5,7 @@ O **Performetric HR** é uma plataforma B2B de avaliação de desempenho e habil
 ## 🔧 Tecnologias Utilizadas
 
 - **Frontend:** React.js + Tailwind CSS
-- **Backend:** Node.js + Express
+- **Backend:** ASP.NET
 - **Banco de Dados:** PostgreSQL
 - **ORM:** Prisma
 - **Controle de Versão:** Git + GitHub
