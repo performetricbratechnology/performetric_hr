@@ -9,7 +9,7 @@ namespace Performetric.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(new { message = "Api ta ok" });
+            return Ok("Funcionou a API");
         }
     }
 }
