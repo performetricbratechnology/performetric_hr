@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Performetric.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac7998472b2a1dfb6d0b7b87c688194be43898d4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1352a320cb1428ea94aeea4cf1831e8796f9b5d3")]
 [assembly: System.Reflection.AssemblyProductAttribute("Performetric.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Performetric.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
