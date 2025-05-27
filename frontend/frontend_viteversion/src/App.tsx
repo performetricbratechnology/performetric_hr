@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import "./App.css";
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './screens/Home';
-import HomeScreen from './screens/homeScreen';
+import HomeScreen from './screens/HomeScreen';
 
 function App() {
   const [status, setStatus] = useState("Connecting...");
@@ -31,3 +33,4 @@ function App() {
 }
 
 export default App;
+
