@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Npgsql;
-
+using Dapper;
+using BCrypt;
 namespace Performetric.API.Services
 {
     public class AuthService
@@ -12,6 +13,25 @@ namespace Performetric.API.Services
             _configuration = configuration;
         }
 
+
+        public async Task<bool> InsertTestUserAsync(string email, string password)
+        {
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+            var passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
+
+            var connection = new NpgsqlConnection(connectionString);
+            await connection.OpenAsync();
+
+            var query = "INSERT INTO credentialsTest (email, password_id) VALUES (@Email, @PasswordHash)";
+            var parameters = new { Email = email, PasswordHash = passwordHash };
+
+            int rowsInserted = await connection.ExecuteAsync(query, parameters);
+
+            return rowsInserted > 0;
+        }
+
+
         public async Task<bool> ValidateUserAsync(string email, string password)
         {
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
@@ -19,15 +39,17 @@ namespace Performetric.API.Services
             using var connection = new NpgsqlConnection(connectionString);
             await connection.OpenAsync();
 
-            var query = "SELECT COUNT(*) FROM credentialsTest WHERE email = @Email AND password_id = @Password";
+            var query = "SELECT password_id FROM credentialsTest WHERE email = @Email LIMIT 1";
 
-            using var command = new NpgsqlCommand(query, connection);
-            command.Parameters.AddWithValue("@Email", email);
-            command.Parameters.AddWithValue("@Password", password);
+            var storedHash = await connection.QueryFirstOrDefaultAsync<string>(query, new { Email = email });
 
-            var result = (long)await command.ExecuteScalarAsync();
+            if (string.IsNullOrEmpty(storedHash))
+                return false;
 
-            return result > 0;
+            // Aqui a verificação da senha com o hash armazenado
+            return BCrypt.Net.BCrypt.Verify(password, storedHash);
         }
+
+
     }
 }
