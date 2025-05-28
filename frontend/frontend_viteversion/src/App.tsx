@@ -3,7 +3,7 @@ import "./App.css";
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './screens/Home';
-import HomeScreen from './screens/HomeScreen';
+import HomeScreen from './screens/loginpage';
 
 function App() {
   const [status, setStatus] = useState("Connecting...");
@@ -26,7 +26,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home status={status} />} />
-        <Route path="/homescreen" element={<HomeScreen />} />
+        <Route path="/login" element={<HomeScreen />} />
       </Routes>
     </BrowserRouter>
   );
