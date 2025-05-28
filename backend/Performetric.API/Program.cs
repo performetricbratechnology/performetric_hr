@@ -11,7 +11,7 @@ builder.Services.AddCors(options =>
         });
 });
 
-
+// builder.Services.AddScoped<authService>();
 builder.Services.AddControllers();
 
 var app = builder.Build();

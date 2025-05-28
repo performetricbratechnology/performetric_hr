@@ -1,5 +1,5 @@
 // src/screens/HomeScreen.tsx
-function HomeScreen() {
+function LoginPage() {
   return (
     <div>
       <h1>HomeScreen Component</h1>
@@ -8,4 +8,4 @@ function HomeScreen() {
   );
 }
 
-export default HomeScreen;
+export default LoginPage;
