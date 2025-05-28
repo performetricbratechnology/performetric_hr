@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "S3gfVRRN29U=",
+  "dgSpecHash": "DE0KWMTC+MY=",
   "success": true,
   "projectFilePath": "C:\\Users\\darri\\Documents\\Performetric HR\\backend\\Performetric.API\\Performetric.API.csproj",
   "expectedPackageFiles": [
@@ -31,7 +31,7 @@
     "C:\\Users\\darri\\.nuget\\packages\\supabase.core\\1.0.0\\supabase.core.1.0.0.nupkg.sha512",
     "C:\\Users\\darri\\.nuget\\packages\\supabase.functions\\2.0.0\\supabase.functions.2.0.0.nupkg.sha512",
     "C:\\Users\\darri\\.nuget\\packages\\supabase.gotrue\\6.0.3\\supabase.gotrue.6.0.3.nupkg.sha512",
-    "C:\\Users\\darri\\.nuget\\packages\\supabase.postgrest\\4.0.3\\supabase.postgrest.4.0.3.nupkg.sha512",
+    "C:\\Users\\darri\\.nuget\\packages\\supabase.postgrest\\4.1.0\\supabase.postgrest.4.1.0.nupkg.sha512",
     "C:\\Users\\darri\\.nuget\\packages\\supabase.realtime\\7.0.2\\supabase.realtime.7.0.2.nupkg.sha512",
     "C:\\Users\\darri\\.nuget\\packages\\supabase.storage\\2.0.2\\supabase.storage.2.0.2.nupkg.sha512",
     "C:\\Users\\darri\\.nuget\\packages\\swashbuckle.aspnetcore\\8.1.2\\swashbuckle.aspnetcore.8.1.2.nupkg.sha512",
