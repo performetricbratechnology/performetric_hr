@@ -24,7 +24,7 @@ namespace Performetric.API.Controllers
                 var response = await _supabaseClient
                     .From<User>()
                     .Select("mail_id, password_id")
-                    .Limit(2)
+                    .Limit(1)
                     .Get();
 
                 var user = response.Models.FirstOrDefault();
@@ -46,7 +46,6 @@ namespace Performetric.API.Controllers
             }
         }
 
-
         [Table("user_credentials")]
         public class User : BaseModel
         {
@@ -58,3 +57,4 @@ namespace Performetric.API.Controllers
         }
     }
 }
+
