@@ -1,7 +1,13 @@
 import { Shield } from "lucide-react";
 import type { LoginTypes } from "../../types/login";
 
-export function Login({ LoginWithEmailAndPassword }: LoginTypes) {
+export function Login({
+  LoginWithEmailAndPassword,
+  email,
+  setEmail,
+  password,
+  setPassword,
+}: LoginTypes) {
   return (
     <div className="space-y-6">
       <div className="flex max-sm:flex-col-reverse items-start sm:items-center justify-between gap-2">
@@ -31,6 +37,7 @@ export function Login({ LoginWithEmailAndPassword }: LoginTypes) {
           2FA
         </span>
       </div>
+
       <form
         onSubmit={LoginWithEmailAndPassword}
         className="space-y-4"
@@ -39,8 +46,8 @@ export function Login({ LoginWithEmailAndPassword }: LoginTypes) {
       >
         <div className="space-y-2">
           <label
-            className="block text-sm font-medium text-slate-800 dark:text-slate-200"
             htmlFor="email"
+            className="block text-sm font-medium text-slate-800 dark:text-slate-200"
             aria-label="Email label"
             role="label"
           >
@@ -52,13 +59,16 @@ export function Login({ LoginWithEmailAndPassword }: LoginTypes) {
             className="w-full p-2 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-600 
             rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 placeholder:text-sm placeholder:text-slate-500 dark:placeholder:text-slate-400"
             placeholder="exemplo@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
+
         <div className="space-y-2">
           <label
-            className="block text-sm font-medium text-slate-800 dark:text-slate-200"
             htmlFor="password"
+            className="block text-sm font-medium text-slate-800 dark:text-slate-200"
             aria-label="Password label"
             role="label"
           >
@@ -71,9 +81,12 @@ export function Login({ LoginWithEmailAndPassword }: LoginTypes) {
             rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 placeholder:text-sm placeholder:text-slate-500 dark:placeholder:text-slate-400"
             placeholder="Digite sua senha"
             minLength={6}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
+
         <button
           type="submit"
           className="w-full bg-blue-600 hover:bg-blue-700 focus:outline-blue-400 dark:focus:outline-blue-500 text-white 
@@ -84,6 +97,7 @@ export function Login({ LoginWithEmailAndPassword }: LoginTypes) {
           Continuar
         </button>
       </form>
+
       <div className="grid justify-center items-center gap-2 mt-8">
         <p
           className="flex justify-center items-center gap-2 text-xs text-slate-500 dark:text-slate-400 text-center"

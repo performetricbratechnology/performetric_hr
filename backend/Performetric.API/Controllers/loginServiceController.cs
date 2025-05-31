@@ -1,40 +1,69 @@
 using Microsoft.AspNetCore.Mvc;
 using Performetric.API.Services;
+using Supabase.Postgrest.Attributes;
+using Supabase.Postgrest.Models;
 
 
 namespace Performetric.API.Controllers
 {
     [ApiController]
-    [Route("api/auth")]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
+        private readonly Supabase.Client _supabaseClient;
         private readonly AuthService _authService;
 
-        public AuthController(AuthService authService)
+        public AuthController(Supabase.Client supabaseClient, AuthService authService)
         {
+            _supabaseClient = supabaseClient;
             _authService = authService;
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequestDTO login)
+        public async Task<IActionResult> Login([FromBody] LoginRequestDTO request)
         {
-            bool isValid = await _authService.ValidateUserAsync(login.Email, login.Password);
-            if (!isValid)
-                return Unauthorized(new { message = "Credenciais inválidas." });
+            //Teste para verificar se o serviço está funcionando
+             Console.WriteLine("Recebido login:");
+             Console.WriteLine($"Email: '{request.MailId}'");
+             Console.WriteLine($"Password: '{request.PasswordId}'");
 
-            return Ok(new { message = "Login bem-sucedido!" });
+            //Consulta banco de dados para verificar as credenciais
+            var response = await _supabaseClient
+                .From<User>()
+                .Select("mail_id, password_id")
+                .Where(u => u.MailId == request.MailId && u.PasswordId == request.PasswordId)
+                .Limit(1)
+                .Get();
+            
+
+            var user = response.Models.FirstOrDefault();
+            if (user == null || 
+                user.PasswordId.Trim() != request.PasswordId.Trim() || 
+                user.MailId.Trim().ToLower() != request.MailId.Trim().ToLower())
+            {
+                return Unauthorized(new { message = "Credenciais Incorretas." });
+            }
+
+
+            return Ok(new
+            {
+                message = "Login bem-sucedido.",
+                user = new
+                {
+                    user.MailId,
+                    user.PasswordId
+                }
+            });
         }
+    }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequestDTO registerRequest)
-        {
+    [Table("user_credentials")]
+    public class User : BaseModel
+    {
+        [Column("mail_id")]
+        public string MailId { get; set; }
 
-            bool created = await _authService.InsertTestUserAsync(registerRequest.Email, registerRequest.Password);
-
-            if (!created)
-                return BadRequest(new { message = "Erro ao criar usuário." });
-
-            return Ok(new { message = "Usuário criado com sucesso!" });
-        }
+        [Column("password_id")]
+        public string PasswordId { get; set; }
     }
 }

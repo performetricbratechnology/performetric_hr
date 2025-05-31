@@ -1,6 +1,15 @@
+using System.Text.Json.Serialization;
+
 namespace Performetric.API.Services;
+
 public class LoginRequestDTO
 {
-    public string Email { get; set; }
-    public string Password { get; set; }
+    [JsonPropertyName("mailId")]
+    public string MailId { get; set; }
+
+    [JsonPropertyName("passwordId")]
+    public string PasswordId { get; set; }
+    
 }
+
+
