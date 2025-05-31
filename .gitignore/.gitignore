@@ -2,8 +2,7 @@
 
 # dependencies
 /frontend/node_modules
-./appsettings.json
-./appsettings.Development.json
+/backend/Performetric.API/appsettings.Development.json
 .pnp.js
 
 # testing
