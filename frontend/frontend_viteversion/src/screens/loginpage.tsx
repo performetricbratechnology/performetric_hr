@@ -65,7 +65,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-slate-100 dark:bg-slate-900 transition-colors duration-300">
       <HeaderLogin />
       <main
         className="flex items-center justify-center py-6 sm:pt-8 px-4"
@@ -73,7 +73,7 @@ export default function LoginPage() {
         role="main"
       >
         <div
-          className="bg-slate-50 dark:bg-gray-800 py-6 px-4 sm:px-8 rounded-lg shadow-lg border border-slate-200
+          className="bg-slate-50 dark:bg-slate-800 py-6 px-4 sm:px-8 rounded-lg shadow-lg border border-slate-200
           dark:border-slate-800 w-full max-w-md"
         >
         {currentStep === "login" && (
