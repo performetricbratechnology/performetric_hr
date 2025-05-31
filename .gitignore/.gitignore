@@ -2,8 +2,8 @@
 
 # dependencies
 /frontend/node_modules
-/appsettings.json
-/appsettings.Development.json
+./appsettings.json
+./appsettings.Development.json
 .pnp.js
 
 # testing
