@@ -22,10 +22,12 @@ namespace Performetric.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDTO request)
         {
+            //Teste para verificar se o serviço está funcionando
              Console.WriteLine("Recebido login:");
              Console.WriteLine($"Email: '{request.MailId}'");
              Console.WriteLine($"Password: '{request.PasswordId}'");
 
+            //Consulta banco de dados para verificar as credenciais
             var response = await _supabaseClient
                 .From<User>()
                 .Select("mail_id, password_id")

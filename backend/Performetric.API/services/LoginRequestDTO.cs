@@ -9,4 +9,7 @@ public class LoginRequestDTO
 
     [JsonPropertyName("passwordId")]
     public string PasswordId { get; set; }
+    
 }
+
+
