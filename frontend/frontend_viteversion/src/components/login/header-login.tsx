@@ -1,16 +1,13 @@
-import { useState } from "react";
 import LogoLight from "../../assets/images/logo/logo-light.png";
 import LogoDark from "../../assets/images/logo/logo-dark.png";
 import { Moon, Sun } from "lucide-react";
-
-type Theme = "light" | "dark";
+import { useTheme } from "../../contexts/theme";
 
 export function HeaderLogin() {
-  const [theme, setTheme] = useState<Theme>("light");
-  const currentTheme = (prev: Theme) => (prev === "dark" ? "light" : "dark");
+  const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    setTheme(currentTheme);
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
     document.documentElement.classList.toggle("dark");
   };
 
