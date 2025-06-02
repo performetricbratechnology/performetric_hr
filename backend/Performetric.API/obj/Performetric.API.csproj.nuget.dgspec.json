@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\darri\\Documents\\Performetric HR\\backend\\Performetric.API\\Performetric.API.csproj": {}
+    "/Users/fernandavaz/Documents/dev/projetos/performetric_hr/backend/Performetric.API/Performetric.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\darri\\Documents\\Performetric HR\\backend\\Performetric.API\\Performetric.API.csproj": {
+    "/Users/fernandavaz/Documents/dev/projetos/performetric_hr/backend/Performetric.API/Performetric.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\darri\\Documents\\Performetric HR\\backend\\Performetric.API\\Performetric.API.csproj",
+        "projectUniqueName": "/Users/fernandavaz/Documents/dev/projetos/performetric_hr/backend/Performetric.API/Performetric.API.csproj",
         "projectName": "Performetric.API",
-        "projectPath": "C:\\Users\\darri\\Documents\\Performetric HR\\backend\\Performetric.API\\Performetric.API.csproj",
-        "packagesPath": "C:\\Users\\darri\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\darri\\Documents\\Performetric HR\\backend\\Performetric.API\\obj\\",
+        "projectPath": "/Users/fernandavaz/Documents/dev/projetos/performetric_hr/backend/Performetric.API/Performetric.API.csproj",
+        "packagesPath": "/Users/fernandavaz/.nuget/packages/",
+        "outputPath": "/Users/fernandavaz/Documents/dev/projetos/performetric_hr/backend/Performetric.API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\darri\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/fernandavaz/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -96,7 +96,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
