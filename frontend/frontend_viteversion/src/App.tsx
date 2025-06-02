@@ -4,6 +4,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './screens/Home';
 import HomeScreen from './screens/loginpage';
+import Reviews from './screens/reviews';
 
 function App() {
   const [status, setStatus] = useState("Connecting...");
@@ -27,6 +28,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home status={status} />} />
         <Route path="/login" element={<HomeScreen />} />
+        <Route path='/reviews' element={<Reviews />} />
       </Routes>
     </BrowserRouter>
   );
