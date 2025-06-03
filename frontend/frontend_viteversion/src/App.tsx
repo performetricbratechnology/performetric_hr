@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import "./App.css";
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './screens/Home';
-import HomeScreen from './screens/loginpage';
-import Reviews from './screens/reviews';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./screens/Home";
+import HomeScreen from "./screens/loginpage";
+import Reviews from "./screens/reviews";
+import { Layout } from "./components/Layout";
 
 function App() {
   const [status, setStatus] = useState("Connecting...");
@@ -26,13 +27,26 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home status={status} />} />
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <Home status={status} />
+            </Layout>
+          }
+        />
         <Route path="/login" element={<HomeScreen />} />
-        <Route path='/reviews' element={<Reviews />} />
+        <Route
+          path="/reviews"
+          element={
+            <Layout>
+              <Reviews />
+            </Layout>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
-
