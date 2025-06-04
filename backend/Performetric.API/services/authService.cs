@@ -49,5 +49,7 @@ namespace Performetric.API.Services
             // Aqui a verificação da senha com o hash armazenado
             return BCrypt.Net.BCrypt.Verify(password, storedHash);
         }
+
+ 
     }
 }
