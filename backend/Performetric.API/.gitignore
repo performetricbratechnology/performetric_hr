@@ -3,5 +3,4 @@ appsettings.Devlopment.json
 **/bin/
 **/obj/
 
-# Ignorar configuração local
-**/appsettings.Development.json
+
