@@ -1,4 +1,4 @@
-appsettings.Devlopment.json
+appsettings.Development.json
 # Ignorar pastas de build
 **/bin/
 **/obj/
