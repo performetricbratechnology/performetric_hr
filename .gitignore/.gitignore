@@ -11,7 +11,15 @@
 # production
 /build
 
+
+# Ignora a pasta bin em qualquer lugar do projeto
+bin/
+
+# Ignora todos appsettings.Development.json, exceto se explicitamente rastreados
+**/appsettings.Development.json
+
 # misc
+
 .DS_Store
 .env.local
 .env.development.local
