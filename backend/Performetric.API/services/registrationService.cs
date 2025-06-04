@@ -21,8 +21,28 @@ namespace Performetric.API.Services
             var connection = new NpgsqlConnection(connectionString);
             await connection.OpenAsync();
 
-            var query = "INSERT INTO employees (full_name, position, email, team) VALUES (@FullName, @Position, @Email, @Team)";
-            var parameters = new { FullName = fullName, Position = position, Email = email, Team = team };
+            var userExistsQuery = await connection.ExecuteScalarAsync<long?>
+            ("SELECT id FROM user_credentials WHERE mail_id = @Email"
+            , new { Email = email }
+            );
+
+            if (userExistsQuery == null)
+            {
+                // User already exists
+                Console.WriteLine("User email not exist in database(user_credentials): " + email);
+                return false;
+            }
+
+            
+
+            var query = @"INSERT INTO employees (full_name, position, email, team) 
+                        VALUES (@FullName, @Position, @Email, @Team)";
+
+            var parameters = new {
+                FullName = fullName,
+                Position = position,
+                Email = email,
+                Team = team };
 
             int rowsInserted = await connection.ExecuteAsync(query, parameters);
 
