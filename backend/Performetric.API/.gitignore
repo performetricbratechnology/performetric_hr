@@ -2,4 +2,4 @@
 bin/
 
 # Ignora todos appsettings.Development.json, exceto se explicitamente rastreados
-**/appsettings.Development.json
+appsettings.Development.json
