@@ -1,1 +1,7 @@
 appsettings.Devlopment.json
+# Ignorar pastas de build
+**/bin/
+**/obj/
+
+# Ignorar configuração local
+**/appsettings.Development.json
