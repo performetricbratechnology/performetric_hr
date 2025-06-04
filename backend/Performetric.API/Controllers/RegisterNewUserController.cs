@@ -36,10 +36,7 @@ namespace Performetric.API.Controllers
                 .Get();
 
             var user = response.Models.FirstOrDefault();
-            if (user != null)
-            {
-                return BadRequest(new { message = "Usuário já existe." });
-            }
+           
 
             // Cria um novo usuário
             var created = await _registerService.RegisterUserAsync(

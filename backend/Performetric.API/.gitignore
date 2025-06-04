@@ -1,5 +1,6 @@
-# Ignora a pasta bin em qualquer lugar do projeto
-bin/
-
-# Ignora todos appsettings.Development.json, exceto se explicitamente rastreados
 appsettings.Development.json
+# Ignorar pastas de build
+**/bin/
+**/obj/
+
+
