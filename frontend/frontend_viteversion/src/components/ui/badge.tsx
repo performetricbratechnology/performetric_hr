@@ -1,12 +1,14 @@
 import * as React from "react";
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: "default" | "secondary" | "destructive" | "outline";
+  variant?: "default" | "secondary" | "destructive" | "outline" | "primary";
 }
 
 const variantClasses: Record<NonNullable<BadgeProps["variant"]>, string> = {
   default:
-    "border-transparent bg-slate-200 dark:bg-slate-800 text-slate-950 dark:text-slate-50",
+    "border-transparent bg-slate-200 dark:bg-slate-700 text-slate-950 dark:text-slate-50",
+  primary:
+    "border-transparent bg-slate-300/60 dark:bg-slate-800 text-slate-950 dark:text-slate-50",
   secondary:
     "border-transparent bg-slate-700 dark:bg-slate-300 text-slate-50 dark:text-slate-950",
   destructive:
