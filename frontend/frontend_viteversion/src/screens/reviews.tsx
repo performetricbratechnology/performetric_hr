@@ -168,6 +168,7 @@ export default function AvaliacoesPage() {
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <label
+                  htmlFor="TypeOfAssessment"
                   className="block text-sm font-medium text-slate-800 dark:text-slate-200"
                   aria-label="Tipo de Avaliação"
                   role="label"
@@ -178,7 +179,7 @@ export default function AvaliacoesPage() {
                   value={tipoAvaliacao}
                   onValueChange={handleTipoAvaliacaoChange}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger id="TypeOfAssessment">
                     <SelectValue placeholder="Selecione o tipo" />
                   </SelectTrigger>
                   <SelectContent>
@@ -195,6 +196,7 @@ export default function AvaliacoesPage() {
               {tipoAvaliacao === "gestor" && (
                 <div className="space-y-2">
                   <label
+                    htmlFor="EmployeeToBeEvaluated"
                     className="block text-sm font-medium text-slate-800 dark:text-slate-200"
                     aria-label="Colaborador a ser Avaliado"
                     role="label"
@@ -205,7 +207,7 @@ export default function AvaliacoesPage() {
                     value={colaboradorSelecionado}
                     onValueChange={setColaboradorSelecionado}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger id="EmployeeToBeEvaluated">
                       <SelectValue placeholder="Selecione o colaborador" />
                     </SelectTrigger>
                     <SelectContent>
