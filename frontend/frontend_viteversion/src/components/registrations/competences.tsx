@@ -14,6 +14,9 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Edit, Plus, Trash } from "lucide-react";
+import { Button } from "../ui/button";
+import { Textarea } from "../ui/textarea";
+import { Badge } from "../ui/badge";
 
 const competences = [
   {
@@ -65,7 +68,7 @@ export function Competences() {
               <label
                 htmlFor="name"
                 className="block text-sm font-medium text-slate-800 dark:text-slate-200"
-                aria-label="Competence name label"
+                aria-label="Competence name input"
                 role="label"
               >
                 Nome da Competência
@@ -83,15 +86,15 @@ export function Competences() {
             </div>
             <div className="space-y-2">
               <label
-                htmlFor="team"
+                htmlFor="category"
                 className="block text-sm font-medium text-slate-800 dark:text-slate-200"
-                aria-label="Team label"
+                aria-label="Team select"
                 role="label"
               >
                 Categoria
               </label>
               <Select value={category} onValueChange={setCategory}>
-                <SelectTrigger>
+                <SelectTrigger id="category">
                   <SelectValue placeholder="Selecione uma categoria" />
                 </SelectTrigger>
                 <SelectContent id="category">
@@ -105,31 +108,28 @@ export function Competences() {
               <label
                 htmlFor="description"
                 className="block text-sm font-medium text-slate-800 dark:text-slate-200"
-                aria-label="Description label"
+                aria-label="Description input"
                 role="label"
               >
                 Descrição
               </label>
-              <textarea
+              <Textarea
                 id="description"
-                className="min-h-20 w-full p-2 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-600 
-            rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 placeholder:text-sm placeholder:text-slate-500 dark:placeholder:text-slate-400"
                 placeholder="Descrição da competência"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required
               />
             </div>
-            <button
+            <Button
               type="submit"
-              className="sm:col-span-2 w-full flex justify-center items-center bg-blue-600 hover:bg-blue-700 focus:outline-blue-400 dark:focus:outline-blue-500 text-white 
-          font-semibold py-2 px-4 rounded-lg transition-colors cursor-pointer disabled:cursor-not-allowed disabled:bg-slate-400"
-              aria-label="Submit button for registration competence"
+              className="sm:col-span-2"
+              aria-label="Adicionar Competência"
               role="button"
             >
               <Plus className="size-5" />
               Adicionar Competência
-            </button>
+            </Button>
           </form>
         </CardContent>
       </Card>
@@ -176,26 +176,27 @@ export function Competences() {
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2 text-xs font-bold my-1">
-                  <span
-                    className="py-0.5 px-3 bg-slate-200 dark:bg-slate-800 rounded-xl"
-                    aria-label={competence.category}
-                    role="status"
-                  >
+                  <Badge aria-label={competence.category} role="status">
                     {competence.category}
-                  </span>
+                  </Badge>
                 </div>
               </div>
-              <div className="flex gap-2 max-sm:self-end *:flex *:justify-center *:items-center *:gap-2 *:text-sm *:transition-colors *:p-2 *:sm:p-3 *:border *:border-slate-300 *:dark:border-slate-700 *:rounded-xl *:cursor-pointer">
-                <button className="hover:bg-blue-500 active:bg-blue-500 hover:text-blue-50 active:text-blue-50">
+              <div className="flex gap-2 max-sm:self-end">
+                <Button
+                  variant="outline"
+                  className="hover:bg-slate-900 hover:text-slate-100 dark:hover:bg-slate-100 dark:hover:text-slate-900  focus:bg-slate-900 focus:text-slate-100 dark:focus:bg-slate-100 dark:focus:text-slate-900 focus:outline-none"
+                >
                   <Edit className="size-4" />
                   Editar
-                </button>
-                <button
-                  className="hover:bg-red-500 active:bg-red-500 hover:text-red-50 active:text-red-50"
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="hover:bg-red-500 hover:text-red-50 focus:bg-red-500 focus:text-red-50 focus:outline-none"
                   aria-label="Remover"
                 >
                   <Trash className="size-4" />
-                </button>
+                </Button>
               </div>
             </div>
           ))}
