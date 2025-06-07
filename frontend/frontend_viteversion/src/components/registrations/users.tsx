@@ -14,6 +14,8 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Edit, Plus, Trash } from "lucide-react";
+import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
 
 const users = [
   {
@@ -63,7 +65,7 @@ export function Users() {
               <label
                 htmlFor="name"
                 className="block text-sm font-medium text-slate-800 dark:text-slate-200"
-                aria-label="Name label"
+                aria-label="Name input"
                 role="label"
               >
                 Nome
@@ -83,7 +85,7 @@ export function Users() {
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-slate-800 dark:text-slate-200"
-                aria-label="Email label"
+                aria-label="Email input"
                 role="label"
               >
                 Email
@@ -103,7 +105,7 @@ export function Users() {
               <label
                 htmlFor="role"
                 className="block text-sm font-medium text-slate-800 dark:text-slate-200"
-                aria-label="Role label"
+                aria-label="Role input"
                 role="label"
               >
                 Cargo
@@ -123,32 +125,31 @@ export function Users() {
               <label
                 htmlFor="team"
                 className="block text-sm font-medium text-slate-800 dark:text-slate-200"
-                aria-label="Team label"
+                aria-label="Team select"
                 role="label"
               >
                 Time
               </label>
               <Select value={team} onValueChange={setTeam}>
-                <SelectTrigger>
+                <SelectTrigger id="team">
                   <SelectValue placeholder="Selecione um time" />
                 </SelectTrigger>
-                <SelectContent id="role">
+                <SelectContent>
                   <SelectItem value="tech">Tech</SelectItem>
                   <SelectItem value="ux">UX</SelectItem>
                   <SelectItem value="marketing">Marketing</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-            <button
+            <Button
               type="submit"
-              className="sm:col-span-2 w-full flex justify-center items-center bg-blue-600 hover:bg-blue-700 focus:outline-blue-400 dark:focus:outline-blue-500 text-white 
-          font-semibold py-2 px-4 rounded-lg transition-colors cursor-pointer disabled:cursor-not-allowed disabled:bg-slate-400"
-              aria-label="Submit button for registration user"
+              className="sm:col-span-2"
+              aria-label="Adicionar Usuário"
               role="button"
             >
               <Plus className="size-5" />
               Adicionar Usuário
-            </button>
+            </Button>
           </form>
         </CardContent>
       </Card>
@@ -195,33 +196,30 @@ export function Users() {
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2 text-xs font-bold my-1">
-                  <span
-                    className="py-0.5 px-3 bg-slate-200 dark:bg-slate-800 rounded-xl"
-                    aria-label={user.role}
-                    role="status"
-                  >
+                  <Badge aria-label={user.role} role="status">
                     {user.role}
-                  </span>
-                  <span
-                    className="py-0.5 px-3 border border-slate-300 dark:border-slate-700 rounded-xl"
-                    aria-label={user.team}
-                    role="status"
-                  >
+                  </Badge>
+                  <Badge variant="outline" aria-label={user.team} role="status">
                     {user.team}
-                  </span>
+                  </Badge>
                 </div>
               </div>
-              <div className="flex gap-2 max-sm:self-end *:flex *:justify-center *:items-center *:gap-2 *:text-sm *:transition-colors *:p-2 *:sm:p-3 *:border *:border-slate-300 *:dark:border-slate-700 *:rounded-xl *:cursor-pointer">
-                <button className="hover:bg-blue-500 active:bg-blue-500 hover:text-blue-50 active:text-blue-50">
+              <div className="flex gap-2 max-sm:self-end">
+                <Button
+                  variant="outline"
+                  className="hover:bg-slate-900 hover:text-slate-100 dark:hover:bg-slate-100 dark:hover:text-slate-900  focus:bg-slate-900 focus:text-slate-100 dark:focus:bg-slate-100 dark:focus:text-slate-900 focus:outline-none"
+                >
                   <Edit className="size-4" />
                   Editar
-                </button>
-                <button
-                  className="hover:bg-red-500 active:bg-red-500 hover:text-red-50 active:text-red-50"
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="hover:bg-red-500 hover:text-red-50 focus:bg-red-500 focus:text-red-50 focus:outline-none"
                   aria-label="Remover"
                 >
                   <Trash className="size-4" />
-                </button>
+                </Button>
               </div>
             </div>
           ))}

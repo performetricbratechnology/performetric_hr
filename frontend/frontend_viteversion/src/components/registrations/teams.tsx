@@ -7,6 +7,9 @@ import {
   CardTitle,
 } from "../ui/cards";
 import { Edit, Plus, Trash } from "lucide-react";
+import { Button } from "../ui/button";
+import { Textarea } from "../ui/textarea";
+import { Badge } from "../ui/badge";
 
 const teams = [
   {
@@ -51,7 +54,7 @@ export function Teams() {
               <label
                 htmlFor="name"
                 className="block text-sm font-medium text-slate-800 dark:text-slate-200"
-                aria-label="Team name label"
+                aria-label="Team name input"
                 role="label"
               >
                 Nome do Time
@@ -71,31 +74,28 @@ export function Teams() {
               <label
                 htmlFor="description"
                 className="block text-sm font-medium text-slate-800 dark:text-slate-200"
-                aria-label="Description label"
+                aria-label="Description input"
                 role="label"
               >
                 Descrição
               </label>
-              <textarea
+              <Textarea
                 id="description"
-                className="min-h-20 w-full p-2 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-600 
-            rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 placeholder:text-sm placeholder:text-slate-500 dark:placeholder:text-slate-400"
                 placeholder="Descrição do time"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required
               />
             </div>
-            <button
+            <Button
               type="submit"
-              className="w-full flex justify-center items-center bg-blue-600 hover:bg-blue-700 focus:outline-blue-400 dark:focus:outline-blue-500 text-white 
-          font-semibold py-2 px-4 rounded-lg transition-colors cursor-pointer disabled:cursor-not-allowed disabled:bg-slate-400"
-              aria-label="Submit button for registration team"
+              className="w-full"
+              aria-label="Adicionar Time"
               role="button"
             >
               <Plus className="size-5" />
               Adicionar Time
-            </button>
+            </Button>
           </form>
         </CardContent>
       </Card>
@@ -142,8 +142,8 @@ export function Teams() {
                   </p>
                 </div>
                 <div className="flex gap-2 text-xs font-bold my-1">
-                  <span
-                    className="py-0.5 px-3 bg-slate-700 dark:bg-slate-300 text-slate-50 dark:text-slate-950 rounded-xl"
+                  <Badge
+                    variant="secondary"
                     aria-label={`
                     ${
                       team.members > 0 && team.members < 2
@@ -155,20 +155,25 @@ export function Teams() {
                     {team.members > 0 && team.members < 2
                       ? `${team.members} membro`
                       : `${team.members} membros`}
-                  </span>
+                  </Badge>
                 </div>
               </div>
-              <div className="flex gap-2 max-sm:self-end *:flex *:justify-center *:items-center *:gap-2 *:text-sm *:transition-colors *:p-2 *:sm:p-3 *:border *:border-slate-300 *:dark:border-slate-700 *:rounded-xl *:cursor-pointer">
-                <button className="hover:bg-blue-500 active:bg-blue-500 hover:text-blue-50 active:text-blue-50">
+              <div className="flex gap-2 max-sm:self-end">
+                <Button
+                  variant="outline"
+                  className="hover:bg-slate-900 hover:text-slate-100 dark:hover:bg-slate-100 dark:hover:text-slate-900  focus:bg-slate-900 focus:text-slate-100 dark:focus:bg-slate-100 dark:focus:text-slate-900 focus:outline-none"
+                >
                   <Edit className="size-4" />
                   Editar
-                </button>
-                <button
-                  className="hover:bg-red-500 active:bg-red-500 hover:text-red-50 active:text-red-50"
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="hover:bg-red-500 hover:text-red-50 focus:bg-red-500 focus:text-red-50 focus:outline-none"
                   aria-label="Remover"
                 >
                   <Trash className="size-4" />
-                </button>
+                </Button>
               </div>
             </div>
           ))}
