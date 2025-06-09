@@ -88,7 +88,7 @@ export function Competences() {
               <label
                 htmlFor="category"
                 className="block text-sm font-medium text-slate-800 dark:text-slate-200"
-                aria-label="Team select"
+                aria-label="category select"
                 role="label"
               >
                 Categoria
