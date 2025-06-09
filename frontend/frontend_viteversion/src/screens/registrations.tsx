@@ -3,9 +3,10 @@ import { Tab, Tabs } from "../components/ui/tabs";
 import { Users } from "../components/registrations/users";
 import { Teams } from "../components/registrations/teams";
 import { Competences } from "../components/registrations/competences";
+import type { RegistrationsType } from "../types/tabs";
 
 export default function RegistrationsPage() {
-  const [tab, setTab] = useState("users");
+  const [tab, setTab] = useState<RegistrationsType>("users");
 
   return (
     <div className="container mx-auto pt-8 px-2 sm:px-4 md:px-6">
@@ -24,13 +25,13 @@ export default function RegistrationsPage() {
         </p>
       </div>
       <Tabs>
-        <Tab tab={tab} setTab={setTab} label="users">
+        <Tab page="registrations" tab={tab} setTab={setTab} label="users">
           Usuários
         </Tab>
-        <Tab tab={tab} setTab={setTab} label="teams">
+        <Tab page="registrations" tab={tab} setTab={setTab} label="teams">
           Times
         </Tab>
-        <Tab tab={tab} setTab={setTab} label="competences">
+        <Tab page="registrations" tab={tab} setTab={setTab} label="competences">
           Competências
         </Tab>
       </Tabs>
