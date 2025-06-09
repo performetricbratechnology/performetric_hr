@@ -11,8 +11,7 @@ const variantClasses: Record<NonNullable<BadgeProps["variant"]>, string> = {
     "border-transparent bg-slate-300/60 dark:bg-slate-800 text-slate-950 dark:text-slate-50",
   secondary:
     "border-transparent bg-slate-700 dark:bg-slate-300 text-slate-50 dark:text-slate-950",
-  destructive:
-    "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
+  destructive: "border-transparent bg-red-500 dark:bg-red-700 text-red-50",
   outline:
     "border-slate-300 dark:border-slate-700 text-slate-950 dark:text-slate-50",
 };
