@@ -1,7 +1,10 @@
-interface TabProps {
-  tab: string;
-  setTab: React.Dispatch<React.SetStateAction<string>>;
-  label: string;
+import type { PageKey, TabValue } from "../../types/tabs";
+
+interface TabProps<P extends PageKey> {
+  page: P;
+  tab: TabValue<P>;
+  setTab: React.Dispatch<React.SetStateAction<TabValue<P>>>;
+  label: TabValue<P>;
   children: React.ReactNode;
 }
 
@@ -17,7 +20,12 @@ export function Tabs({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function Tab({ tab, setTab, label, children }: TabProps) {
+export function Tab<P extends PageKey>({
+  tab,
+  setTab,
+  label,
+  children,
+}: TabProps<P>) {
   return (
     <button
       role="tab"
