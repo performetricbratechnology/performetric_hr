@@ -131,7 +131,7 @@ export function Skills() {
               <label
                 htmlFor="category"
                 className="block text-sm font-medium text-slate-800 dark:text-slate-200"
-                aria-label="Team select"
+                aria-label="category select"
                 role="label"
               >
                 Categoria
@@ -193,11 +193,11 @@ export function Skills() {
           </CardTitle>
           <CardDescription
             aria-label={`Total:
-                     ${
-                       skills.length === 1
-                         ? skills.length + " competência"
-                         : skills.length + " competências"
-                     }`}
+            ${
+              skills.length === 1
+                ? skills.length + " competência"
+                : skills.length + " competências"
+            }`}
             role="paragraph"
           >
             Total:{" "}

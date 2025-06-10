@@ -7,6 +7,7 @@ import HomeScreen from "./screens/loginpage";
 import Reviews from "./screens/reviews";
 import { Layout } from "./components/Layout";
 import RegistrationsPage from "./screens/registrations";
+import DevelopmentPlanPage from "./screens/development-plan";
 
 function App() {
   const [status, setStatus] = useState("Connecting...");
@@ -50,6 +51,14 @@ function App() {
           element={
             <Layout>
               <RegistrationsPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/development-plan"
+          element={
+            <Layout>
+              <DevelopmentPlanPage />
             </Layout>
           }
         />
