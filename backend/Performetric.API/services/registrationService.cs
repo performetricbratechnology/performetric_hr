@@ -21,7 +21,7 @@ namespace Performetric.API.Services
             using var connection = new NpgsqlConnection(connectionString);
             await connection.OpenAsync();
 
-            var query = @"SELECT id, full_name, position, email, team FROM employees";
+            var query = @"SELECT id, full_name AS FullName, position, email, team FROM employees";
 
             var users = await connection.QueryAsync<EmployeeDTO>(query);
 

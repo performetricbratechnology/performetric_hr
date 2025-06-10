@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Tab, Tabs } from "../components/ui/tabs";
 import { Users } from "../components/registrations/users";
 import { Teams } from "../components/registrations/teams";
-import { Competences } from "../components/registrations/competences";
+import { Skills } from "../components/registrations/skills";
 
 export default function RegistrationsPage() {
 
@@ -69,7 +69,7 @@ export default function RegistrationsPage() {
       </Tabs>
       {tab === "users" && <Users />}
       {tab === "teams" && <Teams />}
-      {tab === "competences" && <Competences />}
+      {tab === "competences" && <Skills />}
       <>
     
       </>

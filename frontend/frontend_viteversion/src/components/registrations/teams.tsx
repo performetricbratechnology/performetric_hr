@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, {useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -6,32 +6,72 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/cards";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import { Edit, Plus, Trash } from "lucide-react";
 
-const teams = [
-  {
-    id: 1,
-    name: "Tech",
-    members: 15,
-    description: "Equipe de Tecnologia",
-  },
-  {
-    id: 2,
-    name: "UX",
-    members: 8,
-    description: "Equipe de Design e UX",
-  },
-  {
-    id: 3,
-    name: "Marketing",
-    members: 12,
-    description: "Equipe de Marketing",
-  },
-];
+
+type Team = {
+  id?: string;
+  name: string;
+  description: string;
+  members: number;
+}
+
 
 export function Teams() {
+  const [teams, setTeams] = useState<Team[]>([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+
+
+  const featchTeams = async () => {
+    const res = await fetch("http://localhost:5152/api/registrations/teams");
+    if (res.ok) {
+      const data = await res.json();
+      setTeams(data.map((t: any) => ({
+        id: t.id,
+        name: t.team_name || t.TeamName,
+        description: t.description || t.Description,
+        members: t.members || t.Members || 0
+      })));
+        
+    }
+  }
+
+  useEffect(() => {
+    featchTeams();
+  }, []);
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const payload = {
+      team_name: name,
+      description: description,
+    };
+
+    const res = await fetch("http://localhost:5152/api/registrations/teams", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.ok) {
+      alert("Time cadastrado com sucesso!");
+      setName("");
+      setDescription("");
+    } else {
+      console.error("Erro ao cadastrar time");
+    }
+  };
 
   return (
     <div className="my-6 space-y-6">
@@ -46,7 +86,9 @@ export function Teams() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4">
+          <form
+          onSubmit={handleSubmit} 
+          className="space-y-4">
             <div className="space-y-2">
               <label
                 htmlFor="name"
