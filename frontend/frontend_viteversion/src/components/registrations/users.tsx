@@ -38,7 +38,7 @@ export function Users() {
       const data = await res.json();
       setUsers(data.map((u: any) => ({
         id: u.id,
-        FullName: u.FullName || u.fullName || u.full_name || u.name,
+        FullName: u.full_name || u.FullName,
         Email: u.Email || u.email,
         Position: u.Position || u.position,
         Team: u.Team || u.team,

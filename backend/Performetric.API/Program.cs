@@ -19,6 +19,8 @@ builder.Services.AddScoped<Supabase.Client>(_ => new Supabase.Client(
 
 builder.Services.AddScoped<AuthService>();  // REGISTRE O SERVIÇO AQUI
 builder.Services.AddScoped<RegistrationService>();
+builder.Services.AddScoped<RegistrationTeamService>();
+builder.Services.AddScoped<RegistrationSkillService>();
 
 builder.Services.AddCors(options =>
 {
