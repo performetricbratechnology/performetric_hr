@@ -1,8 +1,12 @@
+using System.Text.Json.Serialization;
+
 namespace Performetric.API.Services;
+
 public class EmployeeDTO
 {
-   public Guid Id { get; set; } 
-   
+    public Guid Id { get; set; }
+
+
     [JsonPropertyName("fullName")]
     public string FullName { get; set; }
     public string Position { get; set; } = string.Empty;
