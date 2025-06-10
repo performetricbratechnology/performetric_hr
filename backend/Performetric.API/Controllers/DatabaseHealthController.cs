@@ -55,6 +55,7 @@ namespace Performetric.API.Controllers
             [Column("password_id")]
             public string PasswordId { get; set; }
         }
+
     }
 }
 
