@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import {
   Card,
   CardContent,
@@ -15,35 +16,70 @@ import {
 } from "../ui/select";
 import { Edit, Plus, Trash } from "lucide-react";
 
-const users = [
-  {
-    id: 1,
-    name: "João Silva",
-    email: "joao@empresa.com",
-    role: "Desenvolvedor",
-    team: "Tech",
-  },
-  {
-    id: 2,
-    name: "Maria Santos",
-    email: "maria@empresa.com",
-    role: "Designer",
-    team: "UX",
-  },
-  {
-    id: 3,
-    name: "Pedro Costa",
-    email: "pedro@empresa.com",
-    role: "Gerente",
-    team: "Tech",
-  },
-];
+type User = {
+  id?: string;
+  FullName: string;
+  Email: string;
+  Position: string;
+  Team: string;
+}
 
 export function Users() {
+  const [users, setUsers] = useState<User[]>([]);  
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const [team, setTeam] = useState("");
+
+  // Buscar usuários do backend
+  const fetchUsers = async () => {
+    const res = await fetch("http://localhost:5152/api/registrations/users");
+    if (res.ok) {
+      const data = await res.json();
+      setUsers(data.map((u: any) => ({
+        id: u.id,
+        FullName: u.FullName || u.fullName || u.full_name || u.name,
+        Email: u.Email || u.email,
+        Position: u.Position || u.position,
+        Team: u.Team || u.team,
+      })));
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const payload = {
+      FullName: name,
+      Email: email,
+      Position: role,
+      Team: team,
+    };
+
+    const res = await fetch("http://localhost:5152/api/registrations/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.ok) {
+      alert("Usuário cadastrado com sucesso!");
+      setName("");
+      setEmail("");
+      setRole("");
+      setTeam("");
+      fetchUsers();
+    } else {
+      const data = await res.json();
+      alert(data.message || "Erro ao cadastrar usuário.");
+    }
+  };
 
   return (
     <div className="my-6 space-y-6">
@@ -58,7 +94,10 @@ export function Users() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <form className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <form
+            onSubmit={handleSubmit}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+          >
             <div className="space-y-2">
               <label
                 htmlFor="name"
@@ -71,6 +110,7 @@ export function Users() {
               <input
                 type="text"
                 id="name"
+                name="FullName"
                 className="w-full p-2 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-600 
               rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 placeholder:text-sm placeholder:text-slate-500 dark:placeholder:text-slate-400"
                 placeholder="Nome completo"
@@ -91,6 +131,7 @@ export function Users() {
               <input
                 type="email"
                 id="email"
+                name="Email"
                 className="w-full p-2 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-600 
             rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 placeholder:text-sm placeholder:text-slate-500 dark:placeholder:text-slate-400"
                 placeholder="exemplo@email.com"
@@ -111,6 +152,7 @@ export function Users() {
               <input
                 type="text"
                 id="role"
+                name="Position"
                 className="w-full p-2 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-600 
             rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 placeholder:text-sm placeholder:text-slate-500 dark:placeholder:text-slate-400"
                 placeholder="Cargo/Função"
@@ -132,7 +174,7 @@ export function Users() {
                 <SelectTrigger>
                   <SelectValue placeholder="Selecione um time" />
                 </SelectTrigger>
-                <SelectContent id="role">
+                <SelectContent>
                   <SelectItem value="tech">Tech</SelectItem>
                   <SelectItem value="ux">UX</SelectItem>
                   <SelectItem value="marketing">Marketing</SelectItem>
@@ -162,16 +204,15 @@ export function Users() {
             Usuários Cadastrados
           </CardTitle>
           <CardDescription
-            aria-label={`Total:
-            ${
-              users.length > 0 && users.length < 2
+            aria-label={`Total: ${
+              users.length === 1
                 ? users.length + " usuário"
                 : users.length + " usuários"
             }`}
             role="paragraph"
           >
             Total:{" "}
-            {users.length > 0 && users.length < 2
+            {users.length === 1
               ? `${users.length} usuário`
               : `${users.length} usuários`}
           </CardDescription>
@@ -179,35 +220,35 @@ export function Users() {
         <CardContent className="space-y-4">
           {users.map((user) => (
             <div
-              key={user.id}
+              key={user.id || user.Email}
               className="flex max-sm:flex-col sm:justify-between items-start sm:items-center gap-4 p-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl"
             >
               <div className="flex flex-col-reverse sm:flex-col">
-                <p className="text-md font-medium" aria-label={user.name}>
-                  {user.name}
+                <p className="text-md font-medium" aria-label={user.FullName}>
+                  {user.FullName}
                 </p>
                 <div>
                   <p
                     className="text-slate-700 dark:text-slate-200"
-                    aria-label={user.email}
+                    aria-label={user.Email}
                   >
-                    {user.email}
+                    {user.Email}
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2 text-xs font-bold my-1">
                   <span
                     className="py-0.5 px-3 bg-slate-200 dark:bg-slate-800 rounded-xl"
-                    aria-label={user.role}
+                    aria-label={user.Position}
                     role="status"
                   >
-                    {user.role}
+                    {user.Position}
                   </span>
                   <span
                     className="py-0.5 px-3 border border-slate-300 dark:border-slate-700 rounded-xl"
-                    aria-label={user.team}
+                    aria-label={user.Team}
                     role="status"
                   >
-                    {user.team}
+                    {user.Team}
                   </span>
                 </div>
               </div>

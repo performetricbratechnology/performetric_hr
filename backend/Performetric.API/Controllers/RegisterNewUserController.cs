@@ -1,11 +1,13 @@
-using Microsoft.AspNetCore.Mvc;              // Para ControllerBase, ApiController, Route, HttpPost, IActionResult, FromBody etc.
-using Performetric.API.Services;              // Para AuthService, RegisterRequestDTO, LoginRequestDTO (ajuste o namespace se for diferente)
-
+using Microsoft.AspNetCore.Mvc;
+using Performetric.API.Services;
+using Performetric.API; // Caso seus DTOs estejam nesse namespace
+using Performetric.API; // Caso seu model User esteja aqui
+using Supabase; // Verifique o namespace correto se necessário
 
 namespace Performetric.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/registrations")]
     public class RegisterNewUserController : ControllerBase
     {
         private readonly Supabase.Client _supabaseClient;
@@ -17,39 +19,48 @@ namespace Performetric.API.Controllers
             _registerService = registerService;
         }
 
-        [HttpPost("registrations")]
+        [HttpGet("users")]
+        public async Task<IActionResult> GetAll()
+        {
+            Console.WriteLine("🔍 Buscando todos os usuários registrados...");
+            var users = await _registerService.GetAllUsersAsync();
+            return Ok(users);
+        }
+
+        [HttpPost("users")]
         public async Task<IActionResult> Register([FromBody] RegistrationDTO request)
         {
-            //Teste para verificar se o serviço está funcionando
-            Console.WriteLine("Recebido registro:");
-            Console.WriteLine($"Nome: {request.FullName}");
-            Console.WriteLine($"Cargo: {request.Position}");
-            Console.WriteLine($"Email: {request.Email}");
-            Console.WriteLine($"Equipe: {request.Team}");
+            if (!ModelState.IsValid)
+                return BadRequest("Requisição inválida.");
 
-            //Consulta banco de dados para verificar as credenciais
+            Console.WriteLine("📥 Registro recebido:");
+            Console.WriteLine($" - Nome: {request.FullName}");
+            Console.WriteLine($" - Cargo: {request.Position}");
+            Console.WriteLine($" - Email: {request.Email}");
+            Console.WriteLine($" - Equipe: {request.Team}");
+
+            // Verifica se usuário já existe
             var response = await _supabaseClient
                 .From<User>()
-                .Select("mail_id")
                 .Where(u => u.MailId == request.Email)
                 .Limit(1)
                 .Get();
 
-            var user = response.Models.FirstOrDefault();
-           
 
-            // Cria um novo usuário
+
             var created = await _registerService.RegisterUserAsync(
                 request.FullName,
                 request.Position,
                 request.Email,
                 request.Team
             );
+
+
             if (!created)
-                return BadRequest("Erro ao criar usuário.");
+                return Conflict("Já existe um usuário com este email.");
 
-            return Ok(new { message = "Usuário registrado com sucesso." });
+            return Ok(new { message = "✅ Usuário registrado com sucesso." });
+            
         }
-
     }
 }
