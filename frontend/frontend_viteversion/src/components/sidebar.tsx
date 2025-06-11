@@ -35,7 +35,7 @@ export function Sidebar() {
     <aside
       className={`fixed h-screen ${
         isOpen ? "w-60" : "w-14 sm:w-18"
-      } transition-all duration-300 bg-slate-50 dark:bg-slate-800 text-slate-950 dark:text-slate-100 shadow`}
+      } transition-all duration-300 bg-slate-50 dark:bg-slate-800 text-slate-950 dark:text-slate-100 shadow z-10`}
       role="menubar"
       aria-label="sidebar"
     >
