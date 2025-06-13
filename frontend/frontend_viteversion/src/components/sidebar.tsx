@@ -64,29 +64,27 @@ export function Sidebar() {
       <nav className="px-2 sm:px-4 py-6 space-y-4" aria-label="menu navigation">
         <ul className="space-y-1" aria-label="menu navigation list">
           {Boards.map((link) => (
-            <>
-              <li
-                key={link.label}
-                className="*:flex *:gap-1 *:items-center *:py-2 *:rounded-lg *:hover:bg-slate-200 *:dark:hover:bg-slate-700"
-                aria-label="menu navigation link"
+            <li
+              key={link.label}
+              className="*:flex *:gap-1 *:items-center *:py-2 *:rounded-lg *:hover:bg-slate-200 *:dark:hover:bg-slate-700"
+              aria-label="menu navigation link"
+            >
+              <NavLink
+                to={link.href}
+                onClick={() => isOpen && setIsOpen(false)}
+                className="aria-[current=page]:bg-slate-200 aria-[current=page]:dark:bg-slate-700 overflow-hidden text-ellipsis text-nowrap"
+                end={link.end}
               >
-                <NavLink
-                  to={link.href}
-                  onClick={() => isOpen && setIsOpen(false)}
-                  className="aria-[current=page]:bg-slate-200 aria-[current=page]:dark:bg-slate-700 overflow-hidden text-ellipsis text-nowrap"
-                  end={link.end}
+                <span className="px-2">{link.icon}</span>
+                <span
+                  className={`${
+                    isOpen ? "w-auto" : "w-0"
+                  } transition-all duration-2000`}
                 >
-                  <span className="px-2">{link.icon}</span>
-                  <span
-                    className={`${
-                      isOpen ? "w-auto" : "w-0"
-                    } transition-all duration-2000`}
-                  >
-                    {link.label}
-                  </span>
-                </NavLink>
-              </li>
-            </>
+                  {link.label}
+                </span>
+              </NavLink>
+            </li>
           ))}
         </ul>
         <Separator />
