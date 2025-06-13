@@ -37,7 +37,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       outline: "border border-slate-300 dark:border-slate-700",
       secondary: "bg-slate-100 text-slate-900 hover:bg-slate-100/80",
       ghost: "hover:bg-slate-100 hover:text-slate-900",
-      link: "text-blue-600 underline-offset-4 hover:underline",
+      link: "text-blue-600 underline-offset-4 hover:underline p-0! w-max h-auto!",
     };
 
     const sizeStyles = {
