@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Tab, Tabs } from "../components/ui/tabs";
-import { Users } from "../components/registrations/users";
-import { Teams } from "../components/registrations/teams";
-import { Skills } from "../components/registrations/skills";
-import type { RegistrationsType } from "../types/tabs";
+import { Tab, Tabs, Title, Description } from "@/components/ui";
+import { Users } from "@/components/registrations/users";
+import { Teams } from "@/components/registrations/teams";
+import { Skills } from "@/components/registrations/skills";
+import type { RegistrationsType } from "@/types/tabs";
 
 export default function RegistrationsPage() {
   const [tab, setTab] = useState<RegistrationsType>("users");
@@ -41,18 +41,10 @@ export default function RegistrationsPage() {
   return (
     <div className="container mx-auto pt-8 px-2 sm:px-4 md:px-6">
       <div className="mb-8">
-        <h1
-          className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2"
-          aria-label="Módulo de Cadastro"
-        >
-          Módulo de Cadastro
-        </h1>
-        <p
-          className="text-slate-600 dark:text-slate-400"
-          aria-label="Gerencie usuários, times e competências do sistema"
-        >
+        <Title>Módulo de Cadastro</Title>
+        <Description aria="Gerencie usuários, times e competências do sistema">
           Gerencie usuários, times e competências do sistema
-        </p>
+        </Description>
       </div>
       <Tabs>
         <Tab page="registrations" tab={tab} setTab={setTab} label="users">
