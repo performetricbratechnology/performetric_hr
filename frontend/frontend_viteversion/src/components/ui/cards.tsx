@@ -22,7 +22,7 @@ const CardRoot = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className = "", ...props }, ref) => (
     <div
       ref={ref}
-      className={`border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 text-slate-900 shadow-sm dark:bg-slate-800 dark:text-slate-50 ${className}`}
+      className={`border border-card-border bg-card text-card-foreground rounded-lg shadow-sm ${className}`}
       {...props}
     />
   )
@@ -46,7 +46,7 @@ const CardTitle = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className = "", ...props }, ref) => (
     <div
       ref={ref}
-      className={`text-2xl font-semibold leading-none tracking-tight ${className}`}
+      className={`text-2xl text-foreground font-semibold leading-none tracking-tight ${className}`}
       {...props}
     />
   )
@@ -57,7 +57,7 @@ const CardDescription = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className = "", ...props }, ref) => (
     <div
       ref={ref}
-      className={`text-sm text-slate-500 dark:text-slate-400 ${className}`}
+      className={`text-sm text-foreground-secondary ${className}`}
       {...props}
     />
   )
