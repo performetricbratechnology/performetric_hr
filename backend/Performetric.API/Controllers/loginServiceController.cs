@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Performetric.API.Services;
+using Performetric.API.Models;
 using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
 
@@ -57,13 +58,5 @@ namespace Performetric.API.Controllers
         }
     }
 
-    [Table("user_credentials")]
-    public class User : BaseModel
-    {
-        [Column("mail_id")]
-        public string MailId { get; set; }
-
-        [Column("password_id")]
-        public string PasswordId { get; set; }
-    }
+  
 }

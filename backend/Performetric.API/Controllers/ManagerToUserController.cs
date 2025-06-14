@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 
 namespace Performetric.API.Controllers;
 
-
 [ApiController]
 [Route("api/[controller]")]
-public class PeerEvaluationController : ControllerBase
+public class ManagerEvaluationController : ControllerBase
 {
     private readonly EvaluationService _service;
 
-    public PeerEvaluationController(EvaluationService service)
+    public ManagerEvaluationController(EvaluationService service)
     {
         _service = service;
     }
@@ -20,11 +19,9 @@ public class PeerEvaluationController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] EvaluationDTO dto)
     {
-        if (dto.EvaluatorId == dto.EvaluateeId)
-            return BadRequest("Você não pode se autoavaliar aqui.");
-
-        dto.EvaluationType = "peer";
-        await _service.AddPeerEvaluationAsync(dto);
-        return Ok("Avaliação de par registrada.");
+        // Aqui você poderia checar no banco se dto.EvaluatorId é admin
+        dto.EvaluationType = "manager";
+        await _service.AddManagerEvaluationAsync(dto);
+        return Ok("Avaliação de gerente/RH registrada.");
     }
 }

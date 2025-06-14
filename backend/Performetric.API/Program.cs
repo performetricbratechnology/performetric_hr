@@ -1,5 +1,6 @@
 using Performetric.API.Services;
 using BCrypt;
+using Dapper;
 using Supabase;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,9 @@ builder.Services.AddScoped<AuthService>();  // REGISTRE O SERVIÇO AQUI
 builder.Services.AddScoped<RegistrationService>();
 builder.Services.AddScoped<RegistrationTeamService>();
 builder.Services.AddScoped<RegistrationSkillService>();
+builder.Services.AddScoped<EvaluationService>();
+
+
 
 builder.Services.AddCors(options =>
 {
