@@ -1,32 +1,78 @@
+using Supabase.Postgrest.Attributes;
+using Supabase.Postgrest.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Performetric.API.Models
 {
-    public class EvaluationSkill
+    [Table("evaluationskills")]
+    public class EvaluationSkill : BaseModel
     {
+        [PrimaryKey("id", false)]
+        public Guid Id { get; set; }
 
-        public string SkillName { get; set; } = string.Empty;
+        [Column("evaluationid")]
+        public Guid EvaluationId { get; set; }
 
-        public double IndividualEvaluation { get; set; }
-        public double PairEvaluation { get; set; }
-        public double ManagerToUserEvaluation { get; set; }
+        [Column("skillid")]
+        public Guid SkillId { get; set; }
 
-        public double Evaluation360 { get; set; }
+        [Column("score")]
+        public int Score { get; set; }
 
-        public double CalculateFinalEvaluationRequest()
+        public static double CalculateFinalEvaluationRequest(List<EvaluationSkill> evaluationSkills)
         {
+            if (evaluationSkills == null || !evaluationSkills.Any())
+                return 0;
 
-            return Math.Round(
-                (IndividualEvaluation * 0.15) +
-                (PairEvaluation * 0.25) +
-                (ManagerToUserEvaluation * 0.35) +
-                (Evaluation360 * 0.25),
-                2
-            );
-
-
+            return evaluationSkills.Average(es => es.Score);
         }
+
+        public static double CalculateFinalScore(
+    List<EvaluationSkill> evaluationSkills, 
+    List<Evaluation> evaluations)
+{
+    if (evaluationSkills == null || evaluations == null)
+        return 0;
+
+    var skillsWithType = from skill in evaluationSkills
+                         join eval in evaluations
+                         on skill.EvaluationId equals eval.Id
+                         select new EvaluationSkillWithType
+                         {
+                             Score = skill.Score,
+                             EvaluationType = eval.EvaluationType
+                         };
+
+    double totalWeight = 0;
+    double weightedSum = 0;
+
+    foreach (var item in skillsWithType)
+    {
+        int weight = item.EvaluationType switch
+        {
+            "self" => 1,
+            "peer" => 2,
+            "manager" => 3,
+            _ => 1
+        };
+
+        weightedSum += item.Score * weight;
+        totalWeight += weight;
+    }
+
+    if (totalWeight == 0)
+        return 0;
+
+    return weightedSum / totalWeight;
+}
 
     }
 
+    public class EvaluationSkillWithType
+    {
+        public int Score { get; set; }
+        public string EvaluationType { get; set; }
+    }
 }

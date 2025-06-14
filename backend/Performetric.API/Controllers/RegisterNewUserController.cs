@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Performetric.API.Services;
+using Performetric.API.Models;
 using Performetric.API; // Caso seus DTOs estejam nesse namespace
 using Performetric.API; // Caso seu model User esteja aqui
 using Supabase; // Verifique o namespace correto se necessário
