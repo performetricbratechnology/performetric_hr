@@ -3,6 +3,7 @@ import React from "react";
 type ButtonVariant =
   | "default"
   | "destructive"
+  | "primary"
   | "outline"
   | "secondary"
   | "ghost"
@@ -29,15 +30,18 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-colors focus:outline-blue-400 dark:focus:outline-blue-500 cursor-pointer disabled:cursor-not-allowed disabled:pointer-events-none disabled:opacity-50";
+      "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-colors  focus:outline-none focus:bg-button-hover cursor-pointer disabled:cursor-not-allowed disabled:pointer-events-none disabled:opacity-50";
 
     const variantStyles = {
-      default: "bg-blue-600 text-white hover:bg-blue-700",
-      destructive: "bg-red-600 text-white hover:bg-red-600/90",
-      outline: "border border-slate-300 dark:border-slate-700",
-      secondary: "bg-slate-100 text-slate-900 hover:bg-slate-100/80",
+      default: "bg-button text-button-foreground hover:bg-button-hover",
+      destructive: "bg-destructive text-white hover:bg-destructive/90",
+      primary:
+        "border border-border hover:bg-foreground hover:text-background focus:bg-foreground focus:text-background focus:outline-none",
+      secondary:
+        "border border-border hover:bg-destructive hover:text-red-50 focus:bg-destructive focus:text-red-50 focus:outline-none",
+      outline: "border border-border",
       ghost: "hover:bg-slate-100 hover:text-slate-900",
-      link: "text-blue-600 underline-offset-4 hover:underline p-0! w-max h-auto!",
+      link: "text-button underline-offset-4 hover:underline p-0! w-max h-auto!",
     };
 
     const sizeStyles = {

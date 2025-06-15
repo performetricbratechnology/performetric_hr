@@ -1,22 +1,23 @@
 import { useState } from "react";
 import { Users, Star, Send } from "lucide-react";
 import {
+  Description,
+  Title,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../components/ui/cards";
-import {
+  Badge,
+  Button,
+  Textarea,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../components/ui/select";
-import { Textarea } from "../components/ui/textarea";
-import { Button } from "../components/ui/button";
-import { Badge } from "../components/ui/badge";
+  Label,
+} from "@/components/ui";
 
 interface Skill {
   id: string;
@@ -123,7 +124,7 @@ export default function AvaliacoesPage() {
           </button>
         ))}
         {currentRating && (
-          <span className="ml-2 text-sm text-slate-600 dark:text-slate-400">
+          <span className="ml-2 text-sm text-foreground-secondary">
             {currentRating}/5
           </span>
         )}
@@ -137,18 +138,11 @@ export default function AvaliacoesPage() {
   return (
     <div className="container mx-auto py-8 px-2 sm:px-4 md:px-6">
       <div className="mb-8">
-        <h1
-          className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2"
-          aria-label="Módulo de Avaliação"
-        >
-          Módulo de Avaliação
-        </h1>
-        <p
-          className="text-slate-600 dark:text-slate-400"
-          aria-label="Realize avaliações 360°, individuais ou por gestor"
-        >
+        <Title>Módulo de Avaliação</Title>
+        <Description aria=" Realize avaliações 360°, individuais ou por gestor">
+          {" "}
           Realize avaliações 360°, individuais ou por gestor
-        </p>
+        </Description>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -157,24 +151,18 @@ export default function AvaliacoesPage() {
           {/* Configuração da Avaliação */}
           <Card>
             <CardHeader>
-              <CardTitle
-                aria-label="Configuração da Avaliação"
-                role="heading"
-                className="text-slate-900 dark:text-slate-100"
-              >
+              <CardTitle aria-label="Configuração da Avaliação" role="heading">
                 Configuração da Avaliação
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <label
+                <Label
                   htmlFor="TypeOfAssessment"
-                  className="block text-sm font-medium text-slate-800 dark:text-slate-200"
                   aria-label="Tipo de Avaliação"
-                  role="label"
                 >
                   Tipo de Avaliação
-                </label>
+                </Label>
                 <Select
                   value={tipoAvaliacao}
                   onValueChange={handleTipoAvaliacaoChange}
@@ -195,14 +183,12 @@ export default function AvaliacoesPage() {
 
               {tipoAvaliacao === "gestor" && (
                 <div className="space-y-2">
-                  <label
+                  <Label
                     htmlFor="EmployeeToBeEvaluated"
-                    className="block text-sm font-medium text-slate-800 dark:text-slate-200"
                     aria-label="Colaborador a ser Avaliado"
-                    role="label"
                   >
                     Colaborador a ser Avaliado
-                  </label>
+                  </Label>
                   <Select
                     value={colaboradorSelecionado}
                     onValueChange={setColaboradorSelecionado}
@@ -232,11 +218,7 @@ export default function AvaliacoesPage() {
               aria-expanded={showEvaluationForm ? "true" : "false"}
             >
               <CardHeader>
-                <CardTitle
-                  aria-label="Progresso"
-                  role="heading"
-                  className="text-slate-900 dark:text-slate-100"
-                >
+                <CardTitle aria-label="Progresso" role="heading">
                   Progresso
                 </CardTitle>
               </CardHeader>
@@ -307,7 +289,6 @@ export default function AvaliacoesPage() {
                 <CardTitle
                   aria-label="Avaliação de Competências"
                   role="heading"
-                  className="text-slate-900 dark:text-slate-100"
                 >
                   Avaliação de Competências
                 </CardTitle>
@@ -359,15 +340,15 @@ export default function AvaliacoesPage() {
                       )}
                     </div>
 
-                    <div>
-                      <label
-                        className="block text-sm font-medium text-slate-800 dark:text-slate-200 mb-2"
-                        role="label"
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor={skill.nome + "-comment"}
                         aria-label="Comentários (opcional)"
                       >
                         Comentários (opcional)
-                      </label>
+                      </Label>
                       <Textarea
+                        id={skill.nome + "-comment"}
                         placeholder="Adicione comentários sobre esta competência..."
                         value={skill.comentario || ""}
                         onChange={(e) =>

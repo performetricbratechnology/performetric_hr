@@ -12,7 +12,7 @@ const SelectTrigger = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
-    className={`flex h-10 w-full items-center justify-between rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 shadow-sm ring-offset-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-50 dark:ring-offset-slate-800 dark:focus:ring-blue-500 [&>span]:line-clamp-1 ${className}`}
+    className={`flex h-10 w-full items-center justify-between rounded-md border border-input bg-input/30 px-3 py-2 text-sm text-foreground-secondary shadow-sm cursor-pointer focus:outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 ${className}`}
     {...props}
   >
     {children}
@@ -59,7 +59,7 @@ const SelectContent = React.forwardRef<
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       ref={ref}
-      className={`relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-slate-200 bg-white text-slate-900 shadow-md dark:border-slate-700 dark:bg-slate-800 dark:text-slate-50
+      className={`relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-input bg-background text-card-foreground shadow-md
       data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 
       data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 
       data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 
@@ -108,7 +108,7 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={`relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none 
-    focus:bg-slate-100 focus:text-slate-900 dark:focus:bg-slate-700 dark:focus:text-slate-50
+    focus:bg-blue-200 focus:text-blue-950 dark:focus:bg-blue-700 dark:focus:text-blue-50
     data-[disabled]:pointer-events-none data-[disabled]:opacity-50 ${className}`}
     {...props}
   >
