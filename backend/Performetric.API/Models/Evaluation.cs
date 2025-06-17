@@ -27,8 +27,9 @@ namespace Performetric.API.Models
 
 
         public static double CalculateFinalEvaluationRequest(
-    List<EvaluationSkill> evaluationSkills,
-    List<Evaluation> evaluations)
+        List<EvaluationSkill> evaluationSkills,
+        List<Evaluation> evaluations)
+        
         {
             if (evaluationSkills == null || evaluations == null)
                 return 0;

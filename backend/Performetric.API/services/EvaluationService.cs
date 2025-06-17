@@ -2,6 +2,7 @@ using Performetric.API.Models;
 using Performetric.API.Controllers;
 using Supabase.Postgrest.Models;
 using System.Linq;
+using Performetric.API.Models;
 using System;
 
 namespace Performetric.API.Services;
@@ -24,14 +25,41 @@ public class EvaluationService
         await AddEvaluationInternalAsync(dto);
     }
 
-    public async Task AddPeerEvaluationAsync(EvaluationDTO dto)
-    {
-        if (dto.EvaluatorId == dto.EvaluateeId)
-            throw new ArgumentException("Avaliação de pares precisa ser entre usuários diferentes.");
+ public async Task AddPeerEvaluationAsync(EvaluationDTO dto)
+{
+    if (dto.EvaluatorId == dto.EvaluateeId)
+        throw new ArgumentException("Avaliação de pares precisa ser entre usuários diferentes.");
 
-        dto.EvaluationType = "peer";
-        await AddEvaluationInternalAsync(dto);
-    }
+    // Buscar o employee correspondente ao EvaluatorId (GUID)
+    var employeeResponse = await _supabaseClient
+        .From<Employees>()
+        .Where(e => e.EmployeeId == dto.EvaluatorId)
+        .Get();
+
+    if (employeeResponse.Models == null || !employeeResponse.Models.Any())
+        throw new ArgumentException("Avaliador não encontrado.");
+
+    var employee = employeeResponse.Models.First();
+
+    // Buscar o usuário (User) correspondente
+    var userResponse = await _supabaseClient
+        .From<User>()
+        .Where(u => u.UserId == employee.UserId)
+        .Get();
+
+    if (userResponse.Models == null || !userResponse.Models.Any())
+        throw new ArgumentException("Usuário vinculado ao avaliador não encontrado.");
+
+    var user = userResponse.Models.First();
+
+    // Verifica se é gerente
+    if (user.IsStaff)
+        throw new ArgumentException("Avaliação de pares não pode ser feita por gerentes ou staff.");
+
+    dto.EvaluationType = "peer";
+    await AddEvaluationInternalAsync(dto);
+}
+
 
     public async Task AddManagerEvaluationAsync(EvaluationDTO dto)
     {
