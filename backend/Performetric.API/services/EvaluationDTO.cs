@@ -11,8 +11,6 @@ namespace Performetric.API.Services
     public int Score { get; set; }
     public string? Comment { get; set; }
     public DateTime CreatedAt { get; set; }
-
-    // Adicione para diferenciar tipos
     public string EvaluationType { get; set; } // "self", "peer", "manager"
 }
 
