@@ -23,6 +23,7 @@ builder.Services.AddScoped<RegistrationService>();
 builder.Services.AddScoped<RegistrationTeamService>();
 builder.Services.AddScoped<RegistrationSkillService>();
 builder.Services.AddScoped<EvaluationService>();
+builder.Services.AddScoped<RemoveUserService>(); // REGISTRE O SERVIÇO PARA REMOVER USUÁRIO AQUI
 
 
 

@@ -119,6 +119,12 @@ public class EvaluationService
         if (insertedEvaluation == null)
             throw new Exception("Falha ao inserir avaliação.");
 
+        if (dto.SkillId == null)
+        {
+            throw new Exception("Falha ao inserir avaliação.");
+            
+        }
+
         // Cria avaliação da skill associada
         var evaluationSkill = new EvaluationSkill
         {
