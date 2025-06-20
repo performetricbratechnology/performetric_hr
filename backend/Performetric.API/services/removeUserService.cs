@@ -52,10 +52,10 @@ namespace Performetric.API.Services
 
         // Método para remover um time
         // Este método deve ser chamado quando um time for removido
-        public async Task<bool> RemoveTeamAsync(string teamId)
+        public async Task<bool> RemoveTeamAsync(string id)
         {
 
-            if (!Guid.TryParse(teamId, out var parsedTeamId))
+            if (!Guid.TryParse(id, out var parsedTeamId))
             {
                 Console.WriteLine("ID de time inválido.");
                 return false;
@@ -68,8 +68,8 @@ namespace Performetric.API.Services
 
             // Check if the team exists
             var exists = await connection.ExecuteScalarAsync<bool>(
-                "SELECT EXISTS (SELECT 1 FROM teams WHERE id = @TeamId)",
-                new { UserId = parsedTeamId }
+                "SELECT EXISTS (SELECT 1 FROM teams WHERE id = @id)",
+                new { id = parsedTeamId }
             );
 
             if (!exists)
@@ -79,8 +79,8 @@ namespace Performetric.API.Services
             }
 
             // Delete the team
-            var query = "DELETE FROM teams WHERE id = @TeamId";
-            var result = await connection.ExecuteAsync(query, new { TeamId = parsedTeamId });
+            var query = "DELETE FROM teams WHERE id = @id";
+            var result = await connection.ExecuteAsync(query, new { id = parsedTeamId });
 
             return result > 0;
         }
@@ -88,10 +88,10 @@ namespace Performetric.API.Services
 
         // Método para remover uma skill
         // Este método deve ser chamado quando uma skill for removida
-        public async Task<bool> RemoveSkillAsync(string skillId)
+        public async Task<bool> RemoveSkillAsync(string id)
         {
 
-            if (!Guid.TryParse(skillId, out var parsedSkillId))
+            if (!Guid.TryParse(id, out var parsedSkillId))
             {
                 Console.WriteLine("ID de skill inválido.");
                 return false;
@@ -104,8 +104,8 @@ namespace Performetric.API.Services
 
             // Check if the skill exists
             var exists = await connection.ExecuteScalarAsync<bool>(
-                "SELECT EXISTS (SELECT 1 FROM skills WHERE id = @SkillId)",
-                new { UserId = parsedSkillId }
+                "SELECT EXISTS (SELECT 1 FROM skills WHERE id = @id)",
+                new { id = parsedSkillId }
             );
 
             if (!exists)
@@ -115,8 +115,8 @@ namespace Performetric.API.Services
             }
 
             // Delete the skill
-            var query = "DELETE FROM skills WHERE id = @SkillId";
-            var result = await connection.ExecuteAsync(query, new { SkillId = parsedSkillId });
+            var query = "DELETE FROM skills WHERE id = @id";
+            var result = await connection.ExecuteAsync(query, new { id = parsedSkillId });
 
             return result > 0;
         }
