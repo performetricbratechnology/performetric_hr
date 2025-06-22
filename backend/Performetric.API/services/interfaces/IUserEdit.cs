@@ -1,6 +1,5 @@
-using Performetric.API.Services.DTOs;
+using Performetric.API.Services;
 using System.Threading.Tasks;
-using Performetric.API.Services.Models;
 
 namespace Performetric.API.Services.Interfaces
 {
