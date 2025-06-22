@@ -9,6 +9,7 @@ import { Layout } from "./components/Layout";
 import RegistrationsPage from "./screens/registrations";
 import DevelopmentPlanPage from "./screens/development-plan";
 import SettingsPage from "./screens/settings";
+import LeaderDashboardPage from "./screens/leader-dashboard";
 
 function App() {
   const [status, setStatus] = useState("Connecting...");
@@ -52,6 +53,14 @@ function App() {
           element={
             <Layout>
               <RegistrationsPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/leader-dashboard"
+          element={
+            <Layout>
+              <LeaderDashboardPage />
             </Layout>
           }
         />
