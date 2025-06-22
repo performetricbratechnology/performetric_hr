@@ -1,4 +1,5 @@
 using Performetric.API.Services;
+using Performetric.API.Services.Interfaces;
 using BCrypt;
 using Dapper;
 using Supabase;
@@ -24,7 +25,7 @@ builder.Services.AddScoped<RegistrationTeamService>();
 builder.Services.AddScoped<RegistrationSkillService>();
 builder.Services.AddScoped<EvaluationService>();
 builder.Services.AddScoped<RemoveUserService>(); // REGISTRE O SERVIÇO PARA REMOVER USUÁRIO AQUI
-
+builder.Services.AddScoped<IUserEdit, EditUserService>(); // REGISTRE O SERVIÇO DE EDIÇÃO DE USUÁRIO AQUI
 
 
 builder.Services.AddCors(options =>
