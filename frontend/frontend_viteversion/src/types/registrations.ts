@@ -50,3 +50,17 @@ export type SProps = {
   skillDescription: string;
   category: string;
 };
+
+export type ControlTypes = "users" | "teams" | "skills";
+
+export type ControlProps = {
+  tab: ControlTypes;
+  id: string;
+};
+
+export type UsersControl = {
+  name: string;
+  role: string;
+  skill: string;
+  team: string;
+};
