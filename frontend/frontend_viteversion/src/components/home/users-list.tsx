@@ -37,7 +37,10 @@ export function UsersList() {
     fetchUsers();
   }, [request]);
 
-  if (loading) return <p>Carregando</p>;
+  if (loading)
+    return (
+      <div className="bg-accent/30 w-full h-60 rounded-lg animate-pulse"></div>
+    );
   if (error) return <p className="text-destructive">{error}</p>;
   return (
     <Card>
@@ -81,7 +84,7 @@ export function UsersList() {
                 </Badge>
               </div>
             </div>
-            <ControlButtons />
+            <ControlButtons tab="users" id="" />
           </div>
         ))}
       </CardContent>
