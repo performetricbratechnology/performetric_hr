@@ -17,6 +17,40 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
 
+function buttonVariants({
+  variant = "default",
+  size = "default",
+  className = "",
+}: {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  className?: string;
+}) {
+  const baseStyles =
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-colors focus:outline-none focus:bg-button-hover cursor-pointer disabled:cursor-not-allowed disabled:pointer-events-none disabled:opacity-50";
+
+  const variantStyles = {
+    default: "bg-button text-button-foreground hover:bg-button-hover",
+    destructive: "bg-destructive text-white hover:bg-destructive/90",
+    primary:
+      "border border-border hover:bg-foreground hover:text-background focus:bg-foreground focus:text-background focus:outline-none",
+    secondary:
+      "border border-border hover:bg-destructive hover:text-red-50 focus:bg-destructive focus:text-red-50 focus:outline-none",
+    outline: "border border-border",
+    ghost: "hover:bg-slate-100 hover:text-slate-900",
+    link: "text-button underline-offset-4 hover:underline p-0! w-max h-auto!",
+  };
+
+  const sizeStyles = {
+    default: "h-10 px-4 py-2",
+    sm: "h-9 rounded-md px-3",
+    lg: "h-11 rounded-md px-8",
+    icon: "h-10 w-10",
+  };
+
+  return `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
+}
+
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
@@ -74,5 +108,5 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = "Button";
 
-export { Button };
+export { Button, buttonVariants };
 export type { ButtonVariant, ButtonSize, ButtonProps };
