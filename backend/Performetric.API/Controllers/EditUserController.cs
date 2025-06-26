@@ -55,12 +55,43 @@ public class EditUserController : ControllerBase
     }
 
     [HttpPost("add-skill")]
-    public async Task<IActionResult> AddSkill([FromBody] EmployeeDTO employee) ///add skill 
+    public async Task<IActionResult> AddSkill([FromBody] AddSkillDTO employee)
     {
-        
-        return Ok("Skill adicionada com sucesso.");
+        if (employee == null || employee.EmployeeId == Guid.Empty || employee.SkillId == Guid.Empty)
+            return BadRequest("Dados inválidos para adicionar skill.");
+
+        try
+        {
+            var result = await _userEditService.NewSkillToEmployee(employee.EmployeeId, employee.SkillId);
+            if (result)
+                return Ok("Skill adicionada com sucesso.");
+            else
+                return StatusCode(500, "A skill não foi adicionada. Verifique os dados.");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Erro ao adicionar skill: {ex.Message}");
+        }
     }
 
+    [HttpPost("remove-skill")]
+    public async Task<IActionResult> RemoveSkill([FromBody] RemoveSkillDTO skill)
+    {
+        if (skill == null || skill.Id == Guid.Empty)
+            return BadRequest("Dados inválidos para remover skill.");
 
+        try
+        {
+            var result = await _userEditService.RemoveSkillFromEmployee(skill.Id);
+            if (result)
+                return Ok("Skill removida com sucesso.");
+            else
+                return StatusCode(500, "A skill não foi removida. Verifique os dados.");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Erro ao remover skill: {ex.Message}");
+        }
+    }
 
 }

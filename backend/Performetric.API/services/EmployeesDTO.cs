@@ -4,7 +4,7 @@ namespace Performetric.API.Services;
 
 public class EmployeeDTO
 {
-   
+
     public Guid Id { get; set; }
 
 
@@ -13,4 +13,5 @@ public class EmployeeDTO
     public string Position { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string Team { get; set; } = string.Empty;
+
 }
