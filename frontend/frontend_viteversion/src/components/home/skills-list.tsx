@@ -79,7 +79,7 @@ export function SkillsList() {
                 </Badge>
               </div>
             </div>
-            <ControlButtons />
+            <ControlButtons skill={skill} tab="skills" />
           </div>
         ))}
       </CardContent>

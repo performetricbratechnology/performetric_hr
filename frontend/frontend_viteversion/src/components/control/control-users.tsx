@@ -23,8 +23,6 @@ type Props = {
 };
 
 export function ControlUsers({ user, onClose }: Props) {
-  if (!user) return <div>Usuário não encontrado.</div>;
-
   const userId = user.id || "";
 
   const [name, setName] = useState(user.FullName);
@@ -46,55 +44,58 @@ export function ControlUsers({ user, onClose }: Props) {
   }, []);
 
   async function updateName(userId: string, newName: string) {
-  const url = `http://localhost:5152/api/EditUser/modify-name?newName=${encodeURIComponent(newName)}`;
-  const options = {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      id: userId,
-      full_name: name,    
-      position: role,
-      email: email,       
-      team: team          
-    }),
-  };
-  return fetch(url, options);
-}
-
+    const url = `http://localhost:5152/api/EditUser/modify-name?newName=${encodeURIComponent(
+      newName
+    )}`;
+    const options = {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: userId,
+        full_name: name,
+        position: role,
+        email: email,
+        team: team,
+      }),
+    };
+    return fetch(url, options);
+  }
 
   async function updatePosition(userId: string, newPosition: string) {
-  const url = `http://localhost:5152/api/EditUser/modify-position?newPosition=${encodeURIComponent(newPosition)}`;
-  const options = {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      id: userId,
-      full_name: name,    
-      position: newPosition,
-      email: email,       
-      team: team          
-    }),
-  };
-  return fetch(url, options);
-}
+    const url = `http://localhost:5152/api/EditUser/modify-position?newPosition=${encodeURIComponent(
+      newPosition
+    )}`;
+    const options = {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: userId,
+        full_name: name,
+        position: newPosition,
+        email: email,
+        team: team,
+      }),
+    };
+    return fetch(url, options);
+  }
 
-
-async function updateTeam(userId: string, newTeam: string) {
-  const url = `http://localhost:5152/api/EditUser/modify-team?newTeam=${encodeURIComponent(newTeam)}`;
-  const options = {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      id: userId,
-      full_name: name,    
-      position: role,
-      email: email,       
-      team: newTeam          
-    }),
-  };
-  return fetch(url, options);
-}
-
+  async function updateTeam(userId: string, newTeam: string) {
+    const url = `http://localhost:5152/api/EditUser/modify-team?newTeam=${encodeURIComponent(
+      newTeam
+    )}`;
+    const options = {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: userId,
+        full_name: name,
+        position: role,
+        email: email,
+        team: newTeam,
+      }),
+    };
+    return fetch(url, options);
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -124,7 +125,10 @@ async function updateTeam(userId: string, newTeam: string) {
 
       // Adiciona skill, se houver
       if (skill.trim()) {
-        const { url: urlSkill, options: optionsSkill } = ADD_SKILL(userId, skill.trim());
+        const { url: urlSkill, options: optionsSkill } = ADD_SKILL(
+          userId,
+          skill.trim()
+        );
         const resSkill = await fetch(urlSkill, optionsSkill);
         if (!resSkill.ok) throw new Error("Erro ao adicionar skill");
       }
@@ -137,6 +141,7 @@ async function updateTeam(userId: string, newTeam: string) {
     }
   };
 
+  if (!user) return <div>Usuário não encontrado.</div>;
   return (
     <SheetContent>
       <SheetHeader>

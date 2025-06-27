@@ -1,5 +1,4 @@
 import type { UserProps } from "./types/registrations";
-import type { UserApiPayload } from "./types/registrations";
 
 const API = "http://localhost:5152/api";
 
@@ -88,7 +87,6 @@ export const MODIFY_NAME = (user: {
   },
 });
 
-
 export const MODIFY_POSITION = (user: {
   id: string;
   full_name: string;
@@ -104,7 +102,6 @@ export const MODIFY_POSITION = (user: {
   },
 });
 
-
 export const MODIFY_TEAM = (user: {
   id: string;
   full_name: string;
@@ -119,7 +116,6 @@ export const MODIFY_TEAM = (user: {
     body: JSON.stringify(user),
   },
 });
-
 
 export const ADD_SKILL = (employeeId: string, skillId: string) => ({
   url: `${API}/EditUser/add-skill`,
