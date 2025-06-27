@@ -15,11 +15,17 @@ public class EditUserController : ControllerBase
         _userEditService = userEditService;
     }
 
-    [HttpPatch("modify-name")]
+   [HttpPatch("modify-name")]
     public async Task<IActionResult> ModifyName([FromBody] EmployeeDTO employee, [FromQuery] string newName)
     {
+        Console.WriteLine($"Employee ID: {employee?.Id}");
+        Console.WriteLine($"NewName: {newName}");
+        
         if (string.IsNullOrWhiteSpace(newName))
             return BadRequest("Nome não pode ser vazio.");
+
+        if (employee == null || employee.Id == Guid.Empty)
+            return BadRequest("Employee inválido.");
 
         var result = await _userEditService.ModifyNameEmployee(employee, newName);
         if (result)

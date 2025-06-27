@@ -1,4 +1,4 @@
-import { TEAMS_GET } from "@/api";
+import { TEAMS_GET, MODIFY_NAME, ADD_SKILL } from "@/api";
 import {
   Button,
   Input,
@@ -8,48 +8,99 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  SheetClose,
   SheetContent,
   SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui";
-import type { TProps } from "@/types/registrations";
-import { useEffect, useState } from "react";
+import type { TProps, UserProps } from "@/types/registrations";
+import React, { useEffect, useState } from "react";
 
-export function ControlUsers() {
-  const [name, setName] = useState("nome.exemplo");
-  const [role, setRole] = useState("UI/UX Designer");
-  const [team, setTeam] = useState("");
+type Props = {
+  user: UserProps;
+  onClose: () => void;
+};
+
+
+
+export function ControlUsers({ user, onClose }: Props) {
+  if (!user) return <div>Usuário não encontrado.</div>;
+
+  const userId = user.id || "";
+
+  const [name, setName] = useState(user.FullName);
+  const [role, setRole] = useState(user.Position);
+  const [team, setTeam] = useState(user.Team);
+  const [skill, setSkill] = useState("");
   const [teams, setTeams] = useState<TProps[]>([]);
+  const [email] = useState(user.Email);
 
   useEffect(() => {
     const fetchTeams = async () => {
       const { url, options } = TEAMS_GET();
       const response = await fetch(url, options);
-
-      if (!response?.ok) return;
+      if (!response.ok) return;
       const data = await response.json();
       setTeams(data);
     };
     fetchTeams();
   }, []);
 
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  try {
+    const payloadToSend = {
+      Id: userId,
+      full_name: name,
+      Position: role,
+      Email: email,
+      Team: team,
+    };
+
+    console.log("Enviando para backend:", payloadToSend);
+    
+    const url = `http://localhost:5152/api/EditUser/modify-name?newName=${encodeURIComponent(name)}`;
+
+    const options = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payloadToSend), 
+    };
+    const res = await fetch(url, options);
+
+
+    if (!res.ok) throw new Error("Erro ao atualizar usuário");
+
+    if (skill.trim()) {
+      const { url: urlSkill, options: optionsSkill } = ADD_SKILL(userId, skill.trim());
+      const resSkill = await fetch(urlSkill, optionsSkill);
+      if (!resSkill.ok) throw new Error("Erro ao adicionar skill");
+    }
+
+    alert("Alterações salvas com sucesso!");
+    onClose();
+  } catch (err) {
+    console.error(err);
+    alert("Erro ao salvar alterações.");
+  }
+};
+
+
   return (
-    <form>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Editar perfil</SheetTitle>
-          <SheetDescription>
-            Faça alterações no perfil aqui. Clique em "Salvar" quando terminar.
-          </SheetDescription>
-        </SheetHeader>
-        <div className="px-4 space-y-4">
+    <SheetContent>
+      <SheetHeader>
+        <SheetTitle>Editar perfil</SheetTitle>
+        <SheetDescription>
+          Faça alterações no perfil aqui. Clique em "Salvar" quando terminar.
+        </SheetDescription>
+      </SheetHeader>
+      <form onSubmit={handleSubmit} className="flex flex-col flex-1">
+        <div className="px-4 space-y-4 flex-grow overflow-auto">
           <div className="space-y-2">
-            <Label htmlFor="name-edit" aria-label="Name input" role="label">
-              Nome
-            </Label>
+            <Label htmlFor="name-edit">Nome</Label>
             <Input
               type="text"
               id="name-edit"
@@ -60,9 +111,7 @@ export function ControlUsers() {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="role-edit" aria-label="Role input" role="label">
-              Cargo
-            </Label>
+            <Label htmlFor="role-edit">Cargo</Label>
             <Input
               type="text"
               id="role-edit"
@@ -73,32 +122,28 @@ export function ControlUsers() {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="team-edit" aria-label="Team select">
-              Time
-            </Label>
+            <Label htmlFor="team-edit">Time</Label>
             <Select value={team} onValueChange={setTeam}>
               <SelectTrigger id="team-edit">
                 <SelectValue placeholder="Selecione um time" />
               </SelectTrigger>
               <SelectContent>
-                {teams.length > 0 &&
-                  teams.map((t) => (
-                    <SelectItem key={t.id} value={t.team_name}>
-                      {t.team_name}
-                    </SelectItem>
-                  ))}
+                {teams.map((t) => (
+                  <SelectItem key={t.id} value={t.team_name}>
+                    {t.team_name}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="skill" aria-label="skill input" role="label">
-              Competência
-            </Label>
+            <Label htmlFor="skill">Competência</Label>
             <Input
               type="text"
               id="skill"
               placeholder="Nova competência"
-              required
+              value={skill}
+              onChange={(e) => setSkill(e.target.value)}
             />
           </div>
         </div>
@@ -106,13 +151,11 @@ export function ControlUsers() {
           <Button type="submit" size="sm">
             Salvar Alterações
           </Button>
-          <SheetClose asChild>
-            <Button variant="outline" size="sm">
-              Fechar
-            </Button>
-          </SheetClose>
+          <Button variant="outline" size="sm" type="button" onClick={onClose}>
+            Fechar
+          </Button>
         </SheetFooter>
-      </SheetContent>
-    </form>
+      </form>
+    </SheetContent>
   );
 }

@@ -22,4 +22,11 @@ public class TestController : ControllerBase
 
         return Ok("Usuário de teste criado com sucesso.");
     }
+
+    [HttpGet]
+    public IActionResult Test()
+    {
+        return Ok("API está funcionando!");
+    }
+
 }

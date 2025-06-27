@@ -64,29 +64,29 @@ export function UsersList() {
       </CardHeader>
       <CardContent className="space-y-4">
         {users.map((user) => (
-          <div
-            key={user.id || user.Email}
-            className="flex max-sm:flex-col sm:justify-between items-start sm:items-center gap-4 p-3 bg-background text-foreground rounded-lg"
-          >
-            <div className="flex flex-col-reverse sm:flex-col">
-              <p className="text-md font-medium" aria-label={user.FullName}>
-                {user.FullName}
-              </p>
-              <div>
-                <Description aria={user.Email}>{user.Email}</Description>
-              </div>
-              <div className="flex flex-wrap gap-2 text-xs font-bold my-1">
-                <Badge aria-label={user.Position} role="status">
-                  {user.Position}
-                </Badge>
-                <Badge variant="outline" aria-label={user.Team} role="status">
-                  {user.Team}
-                </Badge>
-              </div>
+        <div
+          key={user.id || user.Email}
+          className="flex max-sm:flex-col sm:justify-between items-start sm:items-center gap-4 p-3 bg-background text-foreground rounded-lg"
+        >
+          <div className="flex flex-col-reverse sm:flex-col">
+            <p className="text-md font-medium" aria-label={user.FullName}>
+              {user.FullName}
+            </p>
+            <div>
+              <Description aria={user.Email}>{user.Email}</Description>
             </div>
-            <ControlButtons tab="users" id="" />
+            <div className="flex flex-wrap gap-2 text-xs font-bold my-1">
+              <Badge aria-label={user.Position} role="status">
+                {user.Position}
+              </Badge>
+              <Badge variant="outline" aria-label={user.Team} role="status">
+                {user.Team}
+              </Badge>
+            </div>
           </div>
-        ))}
+          <ControlButtons tab="users" user={user} />
+        </div>
+      ))}
       </CardContent>
     </Card>
   );
