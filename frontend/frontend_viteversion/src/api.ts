@@ -89,24 +89,37 @@ export const MODIFY_NAME = (user: {
 });
 
 
-
-export const MODIFY_POSITION = (id: string, position: string) => ({
+export const MODIFY_POSITION = (user: {
+  id: string;
+  full_name: string;
+  position: string;
+  email: string;
+  team: string;
+}) => ({
   url: `${API}/EditUser/modify-position`,
   options: {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id, newPosition: position }),
+    body: JSON.stringify(user),
   },
 });
 
-export const MODIFY_TEAM = (id: string, team: string) => ({
+
+export const MODIFY_TEAM = (user: {
+  id: string;
+  full_name: string;
+  position: string;
+  email: string;
+  team: string;
+}) => ({
   url: `${API}/EditUser/modify-team`,
   options: {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id, newTeam: team }),
+    body: JSON.stringify(user),
   },
 });
+
 
 export const ADD_SKILL = (employeeId: string, skillId: string) => ({
   url: `${API}/EditUser/add-skill`,

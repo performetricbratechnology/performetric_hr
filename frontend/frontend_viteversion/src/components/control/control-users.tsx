@@ -1,4 +1,4 @@
-import { TEAMS_GET, MODIFY_NAME, ADD_SKILL } from "@/api";
+import { TEAMS_GET, ADD_SKILL } from "@/api";
 import {
   Button,
   Input,
@@ -21,8 +21,6 @@ type Props = {
   user: UserProps;
   onClose: () => void;
 };
-
-
 
 export function ControlUsers({ user, onClose }: Props) {
   if (!user) return <div>Usuário não encontrado.</div>;
@@ -47,47 +45,97 @@ export function ControlUsers({ user, onClose }: Props) {
     fetchTeams();
   }, []);
 
+  async function updateName(userId: string, newName: string) {
+  const url = `http://localhost:5152/api/EditUser/modify-name?newName=${encodeURIComponent(newName)}`;
+  const options = {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: userId,
+      full_name: name,    
+      position: role,
+      email: email,       
+      team: team          
+    }),
+  };
+  return fetch(url, options);
+}
+
+
+  async function updatePosition(userId: string, newPosition: string) {
+  const url = `http://localhost:5152/api/EditUser/modify-position?newPosition=${encodeURIComponent(newPosition)}`;
+  const options = {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: userId,
+      full_name: name,    
+      position: newPosition,
+      email: email,       
+      team: team          
+    }),
+  };
+  return fetch(url, options);
+}
+
+
+async function updateTeam(userId: string, newTeam: string) {
+  const url = `http://localhost:5152/api/EditUser/modify-team?newTeam=${encodeURIComponent(newTeam)}`;
+  const options = {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: userId,
+      full_name: name,    
+      position: role,
+      email: email,       
+      team: newTeam          
+    }),
+  };
+  return fetch(url, options);
+}
+
+
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  try {
-    const payloadToSend = {
-      Id: userId,
-      full_name: name,
-      Position: role,
-      Email: email,
-      Team: team,
-    };
+    e.preventDefault();
 
-    console.log("Enviando para backend:", payloadToSend);
-    
-    const url = `http://localhost:5152/api/EditUser/modify-name?newName=${encodeURIComponent(name)}`;
+    try {
+      const payloadToSend = {
+        Id: userId,
+        full_name: name,
+        position: role,
+        email: email,
+        team: team,
+      };
 
-    const options = {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payloadToSend), 
-    };
-    const res = await fetch(url, options);
+      console.log("Enviando para backend:", payloadToSend);
 
+      // Atualiza nome
+      const resName = await updateName(userId, name);
+      if (!resName.ok) throw new Error("Erro ao atualizar nome");
 
-    if (!res.ok) throw new Error("Erro ao atualizar usuário");
+      // Atualiza posição
+      const resPosition = await updatePosition(userId, role);
+      if (!resPosition.ok) throw new Error("Erro ao atualizar posição");
 
-    if (skill.trim()) {
-      const { url: urlSkill, options: optionsSkill } = ADD_SKILL(userId, skill.trim());
-      const resSkill = await fetch(urlSkill, optionsSkill);
-      if (!resSkill.ok) throw new Error("Erro ao adicionar skill");
+      // Atualiza time
+      const resTeam = await updateTeam(userId, team);
+      if (!resTeam.ok) throw new Error("Erro ao atualizar time");
+
+      // Adiciona skill, se houver
+      if (skill.trim()) {
+        const { url: urlSkill, options: optionsSkill } = ADD_SKILL(userId, skill.trim());
+        const resSkill = await fetch(urlSkill, optionsSkill);
+        if (!resSkill.ok) throw new Error("Erro ao adicionar skill");
+      }
+
+      alert("Alterações salvas com sucesso!");
+      onClose();
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao salvar alterações.");
     }
-
-    alert("Alterações salvas com sucesso!");
-    onClose();
-  } catch (err) {
-    console.error(err);
-    alert("Erro ao salvar alterações.");
-  }
-};
-
+  };
 
   return (
     <SheetContent>
