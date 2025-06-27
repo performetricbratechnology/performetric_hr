@@ -37,6 +37,9 @@ public class EditUserController : ControllerBase
     [HttpPatch("modify-position")]
     public async Task<IActionResult> ModifyPosition([FromBody] EmployeeDTO employee, [FromQuery] string newPosition)
     {
+        Console.WriteLine($"NewPosition: {newPosition}");
+
+
         if (string.IsNullOrWhiteSpace(newPosition))
             return BadRequest("Posição não pode ser vazia.");
 
