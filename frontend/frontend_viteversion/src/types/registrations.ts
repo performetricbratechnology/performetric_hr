@@ -6,6 +6,15 @@ export type UserProps = {
   Team: string;
 };
 
+export type UserApiPayload = {
+  id: string;
+  full_name: string;
+  email: string;
+  position: string;
+  team: string;
+};
+
+
 export type UProps = {
   id: string;
   full_name: string;

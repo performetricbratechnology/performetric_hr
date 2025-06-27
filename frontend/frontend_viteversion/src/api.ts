@@ -1,4 +1,5 @@
 import type { UserProps } from "./types/registrations";
+import type { UserApiPayload } from "./types/registrations";
 
 const API = "http://localhost:5152/api";
 
@@ -71,3 +72,47 @@ export function SKILL_POST(body: {
     },
   };
 }
+
+export const MODIFY_NAME = (user: {
+  id: string;
+  full_name: string;
+  position: string;
+  email: string;
+  team: string;
+}) => ({
+  url: `${API}/EditUser/modify-name`,
+  options: {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(user),
+  },
+});
+
+
+
+export const MODIFY_POSITION = (id: string, position: string) => ({
+  url: `${API}/EditUser/modify-position`,
+  options: {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id, newPosition: position }),
+  },
+});
+
+export const MODIFY_TEAM = (id: string, team: string) => ({
+  url: `${API}/EditUser/modify-team`,
+  options: {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id, newTeam: team }),
+  },
+});
+
+export const ADD_SKILL = (employeeId: string, skillId: string) => ({
+  url: `${API}/EditUser/add-skill`,
+  options: {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ employeeId, skillId }),
+  },
+});

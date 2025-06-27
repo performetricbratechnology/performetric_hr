@@ -38,30 +38,94 @@ public class EditUserService : IUserEdit
     
     }
 
-    public async Task<bool> ModifyPositionEmployee(EmployeeDTO employee, string newPosition)
+    public async Task<bool> ModifyPositionEmployee(EmployeeDTO employeeDTO, string newPosition)
     {
-        return false; // Implementar lógica para modificar a posição do funcionário
+
+    var existing = await _supabaseClient
+        .From<Employees>()
+        .Where(e => e.EmployeeId == employeeDTO.Id)
+        .Single();
+
+    if (existing == null)
+        return false;
+
+    existing.Position = newPosition;
+
+    var response = await _supabaseClient
+        .From<Employees>()
+        .Update(existing);
+
+    return response.Models != null &&  response.Models.Any();
       
     }
 
-    public async Task<bool> ModifyTeamEmployee(EmployeeDTO employee, string newTeam)
+    public async Task<bool> ModifyTeamEmployee(EmployeeDTO employeeDTO, string newTeam)
     {
+         var existing = await _supabaseClient
+        .From<Employees>()
+        .Where(e => e.EmployeeId == employeeDTO.Id)
+        .Single();
 
-        return false; // Implementar lógica para modificar o time do funcionário
-        
+        if (existing == null)
+            return false;
+
+        existing.Team = newTeam;
+
+        var response = await _supabaseClient
+            .From<Employees>()
+            .Update(existing);
+
+        return response.Models != null &&  response.Models.Any();
+
+   
+    }
+
+    public async Task<bool> NewSkillToEmployee(Guid employeeId, Guid skillId)
+    {
+        var existing = await _supabaseClient
+            .From<Employees>()
+            .Where(e => e.EmployeeId == employeeId)
+            .Single();
+
+        var existingSkill = await _supabaseClient
+            .From<Skill>()
+            .Where(s => s.SkillId == skillId)
+            .Single();
+
+        if (existing == null || existingSkill == null)
+            throw new ArgumentException("Funcionário ou skill não encontrado.");
+
+        var response = await _supabaseClient
+            .From<EmployeesSkills>()
+            .Insert(new EmployeesSkills
+            {
+                Id = Guid.NewGuid(), // Gerar um novo ID para a nova skill
+                EmployeeId = employeeId,
+                SkillId = skillId
+            });
+
+        return response.Models != null && response.Models.Any();
+    
+      
+    }
+
+    public async Task<bool> RemoveSkillFromEmployee(Guid id)
+    {
+        var existing = await _supabaseClient
+            .From<EmployeesSkills>()
+            .Where(es => es.Id == id)
+            .Single();
+
+        if (existing == null)
+            return false;
+
+        await _supabaseClient
+            .From<EmployeesSkills>()
+            .Where(es => es.Id == id)
+            .Delete();
+
+        return true;
     }
 
 
-
-    public async Task NewSkillToEmployee(EmployeeDTO employee, SkillDTO skill)
-    {
-        // Implementar lógica para adicionar nova skill ao funcionário
-        throw new NotImplementedException();
-    }
-
-    public async Task RemoveSkillFromEmployee(EmployeeDTO employee, SkillDTO skill)
-    {
-        // Implementar lógica para remover skill do funcionário
-        throw new NotImplementedException();
-    }
 }

@@ -7,7 +7,7 @@ namespace Performetric.API.Models
     public class Employees : BaseModel
     {
         [PrimaryKey("id", false)]
-        [Column("id")] 
+        [Column("id")]
         public Guid EmployeeId { get; set; }
 
         [Column("user_id")]
@@ -15,6 +15,10 @@ namespace Performetric.API.Models
 
         [Column("full_name")]
         public string FullName { get; set; } = string.Empty;
+        [Column("position")]
+        public string Position { get; set; } = string.Empty;
+        [Column("team")]
+        public string Team { get; set; } = string.Empty;
 
     }
 }

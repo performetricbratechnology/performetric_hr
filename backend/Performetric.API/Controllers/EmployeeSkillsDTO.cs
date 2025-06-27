@@ -1,0 +1,15 @@
+using System.Text.Json.Serialization;
+
+namespace Performetric.API.Services;
+
+public class EmployeeSkillsDTO
+{
+    [JsonPropertyName("id")]
+    public Guid? Id { get; set; }
+
+    [JsonPropertyName("employee_id")]
+    public Guid EmployeeId { get; set; }
+    [JsonPropertyName("skill_id")]
+    public Guid SkillId { get; set; }
+
+}
