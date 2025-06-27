@@ -25,6 +25,33 @@ type Props = {
 
 export function ControlButtons({ tab, user }: Props) {
   const [open, setOpen] = useState(false);
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  async function handleDelete() {
+    if (!user || !user.id) return;
+
+    setIsDeleting(true);
+
+    try {
+      const response = await fetch(`http://localhost:5152/api/removeUser/${user.id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || "Erro ao remover usuário");
+      }
+
+      alert("Usuário removido com sucesso!");
+      setAlertOpen(false);
+      // Aqui você pode chamar alguma função para atualizar a lista, por ex.
+    } catch (error: any) {
+      alert(`Erro: ${error.message || error}`);
+    } finally {
+      setIsDeleting(false);
+    }
+  }
 
   return (
     <div className="flex gap-2 max-sm:self-end">
@@ -45,7 +72,7 @@ export function ControlButtons({ tab, user }: Props) {
         </SheetContent>
       </Sheet>
 
-      <AlertDialog>
+      <AlertDialog open={alertOpen} onOpenChange={setAlertOpen}>
         <AlertDialogTrigger asChild>
           <Button variant="secondary" size="icon" aria-label="Remover">
             <Trash className="size-4" />
@@ -59,8 +86,10 @@ export function ControlButtons({ tab, user }: Props) {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction>Remover</AlertDialogAction>
+            <AlertDialogCancel disabled={isDeleting}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction disabled={isDeleting} onClick={handleDelete}>
+              {isDeleting ? "Removendo..." : "Remover"}
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
