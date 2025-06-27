@@ -91,7 +91,7 @@ export function TeamsList() {
                 </Badge>
               </div>
             </div>
-            <ControlButtons />
+            <ControlButtons tab="teams" team={team} />
           </div>
         ))}
       </CardContent>
