@@ -32,6 +32,7 @@ export type TeamProps = {
   name: string;
   description: string;
   members?: number;
+  team?: string;
 };
 
 export type TProps = {
