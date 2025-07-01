@@ -15,6 +15,9 @@ public class removeTeamController : ControllerBase
 
     public removeTeamController(RemoveUserService service)
     {
+        Console.WriteLine("hi");
+        Console.WriteLine("hi");
+
         _service = service;
     }
 
