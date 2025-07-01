@@ -1,64 +1,46 @@
 using Microsoft.AspNetCore.Mvc;
 using Performetric.API.Services;
+using Performetric.API.Services.Interfaces;
 using Performetric.API; // Caso seus DTOs estejam nesse namespace
 using Performetric.API.Models; // Caso seu model Skill esteja aqui
 using Supabase; // Verifique o namespace correto se necessário
 
-namespace Performetric.API.Controllers
+namespace Performetric.API.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class RegisterNewSkillController : ControllerBase
 {
-    [ApiController]
-    [Route("api/registrations")]
-    public class RegisterNewSkillController : ControllerBase
+    private readonly IRegisterService _registerSkillService;
+    public RegisterNewSkillController(IRegisterService registerSkillService)
     {
-        private readonly Supabase.Client _supabaseClient;
-        private readonly RegistrationSkillService _registerService;
-
-        public RegisterNewSkillController(Supabase.Client supabaseClient, RegistrationSkillService registerService)
-        {
-            _supabaseClient = supabaseClient;
-            _registerService = registerService;
-        }
-
-        [HttpGet("skills")]
-        public async Task<IActionResult> GetAll()
-        {
-            Console.WriteLine("🔍 Buscando todos as Skills registradas...");
-            var skills = await _registerService.GetAllSkillsAsync();
-            return Ok(skills);
-        }
-
-        [HttpPost("skills")]
-        public async Task<IActionResult> Register([FromBody] SkillDTO request)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest("Requisição inválida.");
-
-            Console.WriteLine("📥 Registro recebido:");
-            Console.WriteLine($" - Nome: {request.SkillName}");
-           
-         
-
-            // Verifica se usuário já existe
-            var response = await _supabaseClient
-                .From<Skill>()
-                .Where(s => s.SkillName == request.SkillName)
-                .Limit(1)
-                .Get();
-
-
-
-            var createdSkill = await _registerService.RegisterSkillAsync(
-                request.SkillName
-                
-               
-            );
-
-
-            if (!createdSkill)
-                return Conflict("Já existe uma skill com este nome.");
-
-            return Ok(new { message = "✅ Skill registrado com sucesso." });
-            
-        }
+        _registerSkillService = registerSkillService;
     }
+
+    [HttpPost("register-new-skill")]
+    public async Task<IActionResult> RegisterNewSkill([FromBody] SkillDTO skill)
+    {
+        if (string.IsNullOrWhiteSpace(skill.SkillName))
+            return BadRequest("Nome não pode ser vazio.");
+
+        var result = await _registerSkillService.RegisterSkill(skill);
+        if (result)
+            return Ok("Deu certo");
+
+        return StatusCode(500, "Erro ao criar");
+
+    }
+
+    [HttpGet("all-skills")]
+    public async Task<IActionResult> GetAllSkills()
+    {
+        var skills = await _registerSkillService.GetAllSkills();
+        
+        if (skills == null || !skills.Any())
+            return NotFound("Nenhuma skill encontrada.");
+
+        return Ok(skills);
+    }
+
+
 }

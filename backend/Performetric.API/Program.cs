@@ -22,12 +22,13 @@ builder.Services.AddScoped<Supabase.Client>(_ => new Supabase.Client(
 builder.Services.AddScoped<AuthService>();  // REGISTRE O SERVIÇO AQUI
 builder.Services.AddScoped<RegistrationService>();
 builder.Services.AddScoped<RegistrationTeamService>();
-builder.Services.AddScoped<RegistrationSkillService>();
+builder.Services.AddScoped<IRegisterService, RegistrationSkillService>();
 builder.Services.AddScoped<EvaluationService>();
 builder.Services.AddScoped<RemoveUserService>(); // 
 builder.Services.AddScoped<IUserEdit, EditUserService>(); // 
 builder.Services.AddScoped<ITeamEdit, EditTeamService>();
 builder.Services.AddScoped<ISkillEdit, EditSkillService>();
+builder.Services.AddScoped<ISkillCategoryService, SkillCategoryService>();
 
 
 

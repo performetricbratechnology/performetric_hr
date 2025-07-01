@@ -28,7 +28,7 @@ export function SkillsList() {
           id: skill.id,
           name: skill.skillName || skill.skill_name,
           description: skill.skillDescription || skill.skill_description,
-          category: skill.category || "Não especificada",
+          category: skill.categoryName || "Não especificada",
         }))
       );
     };

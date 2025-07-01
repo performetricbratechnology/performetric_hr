@@ -58,7 +58,8 @@ export type SProps = {
   skillName: string;
   skill_description: string;
   skillDescription: string;
-  category: string;
+  categoryId: number;
+  categoryName: string;
 };
 
 export type ControlTypes = "users" | "teams" | "skills";

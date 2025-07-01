@@ -19,7 +19,7 @@ namespace Performetric.API.Models
         [Column("skill_description")]
         public string SkillDescription { get; set; }
         [Column("category_id")]
-        public Guid CategoryId { get; set; }
+        public int? CategoryId { get; set; }
 
 
     

@@ -22,7 +22,7 @@ public class EditSkillService : ISkillEdit
     {
         var existing = await _supabaseClient
             .From<Skill>()
-            .Where(e => e.SkillId == skillDTO.Id)
+            .Where(e => e.SkillId == skillDTO.SkillId)
             .Single();
 
         if (existing == null)
@@ -42,7 +42,7 @@ public class EditSkillService : ISkillEdit
     {
         var existing = await _supabaseClient
            .From<Skill>()
-           .Where(e => e.SkillId == skillDTO.Id)
+           .Where(e => e.SkillId == skillDTO.SkillId)
            .Single();
 
         if (existing == null)

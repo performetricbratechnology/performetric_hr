@@ -48,7 +48,7 @@ export function TEAM_POST(body: { team_name: string; description: string }) {
 
 export function SKILLS_GET() {
   return {
-    url: API + "/registrations/skills",
+    url: API + "/RegisterNewSkill/all-skills",
     options: {
       method: "GET",
     },
@@ -56,12 +56,14 @@ export function SKILLS_GET() {
 }
 
 export function SKILL_POST(body: {
+  id?: number;
   skill_name: string;
   skill_description: string;
-  category: string;
+  category: number;
+  categoryName?: string;
 }) {
   return {
-    url: API + "/registrations/skills",
+    url: API + "/RegisterNewSkill/register-new-skill",
     options: {
       method: "POST",
       headers: {
@@ -71,6 +73,7 @@ export function SKILL_POST(body: {
     },
   };
 }
+
 
 export const MODIFY_NAME = (user: {
   id: string;
@@ -125,3 +128,13 @@ export const ADD_SKILL = (employeeId: string, skillId: string) => ({
     body: JSON.stringify({ employeeId, skillId }),
   },
 });
+
+
+export function GET_CATEGORIES() {
+  return {
+      url: `${API}/SkillCategory/get-all-categories`,
+      options: {
+      method: "GET",
+    },
+  };
+}
