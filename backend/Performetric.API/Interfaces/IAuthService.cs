@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Performetric.API.Services.Interfaces
+namespace Performetric.API.Interfaces
 {
 
     public interface IAuthService

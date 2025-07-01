@@ -1,4 +1,6 @@
 using Microsoft.Extensions.Configuration;
+using Performetric.API.DTOs;
+using Performetric.API.Interfaces;
 using Npgsql;
 using Dapper;
 using BCrypt;

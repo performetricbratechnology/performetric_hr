@@ -1,5 +1,5 @@
 using Performetric.API.Services;
-using Performetric.API.Services.Interfaces;
+using Performetric.API.Interfaces;
 using BCrypt;
 using Dapper;
 using Supabase;
@@ -19,7 +19,7 @@ builder.Services.AddScoped<Supabase.Client>(_ => new Supabase.Client(
     }
 ));
 
-builder.Services.AddScoped<AuthService>();  // REGISTRE O SERVIÇO AQUI
+builder.Services.AddScoped<AuthService>(); 
 builder.Services.AddScoped<RegistrationService>();
 builder.Services.AddScoped<RegistrationTeamService>();
 builder.Services.AddScoped<IRegisterService, RegistrationSkillService>();
