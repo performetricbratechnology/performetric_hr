@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Performetric.API.Services;
 using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
+using Performetric.API.DTOs;
+using Performetric.API.Interfaces;
+
 using Performetric.API.Models;
 
 

@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
+using Performetric.API.DTOs;
+using Performetric.API.Interfaces;
 using Performetric.API.Controllers;
-using Performetric.API.Services.Interfaces;
 using Performetric.API.Models;
 using Supabase;
 using Supabase.Postgrest.Models;

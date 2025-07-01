@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Performetric.API.Services;
-using Performetric.API.Services.Interfaces;
 using System.Threading.Tasks;
+using Performetric.API.Interfaces;
+
+using Performetric.API.DTOs;
+
 
 namespace Performetric.API.Controllers;
 

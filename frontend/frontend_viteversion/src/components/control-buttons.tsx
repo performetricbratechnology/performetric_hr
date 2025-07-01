@@ -38,26 +38,39 @@ export function ControlButtons({ tab, user, team, skill }: Props) {
   const [isDeleting, setIsDeleting] = useState(false);
 
   async function handleDelete() {
-    if (!user || !user.id) return;
-
     setIsDeleting(true);
 
     try {
-      const response = await fetch(
-        `http://localhost:5152/api/removeUser/${user.id}`,
-        {
+      let response: Response;
+
+      if (tab === "users") {
+        if (!user || !user.id) return;
+        response = await fetch(`http://localhost:5152/api/removeUser/${user.id}`, {
           method: "DELETE",
-        }
-      );
+        });
+      } else if (tab === "teams") {
+        if (!team || !team.id) return;
+        response = await fetch(`http://localhost:5152/api/removeTeam/${team.id}`, {
+          method: "DELETE",
+        });
+      } else if (tab === "skills") {
+        if (!skill || !skill.id) return;
+        response = await fetch(`http://localhost:5152/api/removeSkill/${skill.id}`, {
+          method: "DELETE",
+        });
+      } else {
+        throw new Error("Tipo inválido para deleção");
+      }
 
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(errorText || "Erro ao remover usuário");
+        throw new Error(errorText || "Erro ao remover item");
       }
 
-      alert("Usuário removido com sucesso!");
+      alert(`${tab === "users" ? "Usuário" : tab === "teams" ? "Time" : "Skill"} removido com sucesso!`);
       setAlertOpen(false);
       // Aqui você pode chamar alguma função para atualizar a lista, por ex.
+
     } catch (error: unknown) {
       if (error instanceof Error) {
         alert(`Erro: ${error.message || error}`);
@@ -79,26 +92,16 @@ export function ControlButtons({ tab, user, team, skill }: Props) {
           </Button>
         </SheetTrigger>
         <SheetContent className="w-[400px] sm:w-[540px]">
-          {/* Renderize apenas se user existir */}
           {tab === "users" && user ? (
             <ControlUsers user={user} onClose={() => setOpen(false)} />
-          ) : (
-            <div className="p-4 text-center text-slate-500">
-              Nenhum usuário selecionado.
-            </div>
-          )}
-                {tab === "teams" ? (
-          team ? (
+          ) : tab === "teams" && team ? (
             <ControlTeams team={team} onClose={() => setOpen(false)} />
+          ) : tab === "skills" && skill ? (
+            <ControlSkill skill={skill} onClose={() => setOpen(false)} />
           ) : (
             <div className="p-4 text-center text-slate-500">
-              Nenhum time encontrado
+              Nenhum item selecionado.
             </div>
-          )
-        ) : null}
-
-          {tab === "skills" && (
-            <ControlSkill skill={skill} onClose={() => setOpen(false)} />
           )}
         </SheetContent>
       </Sheet>

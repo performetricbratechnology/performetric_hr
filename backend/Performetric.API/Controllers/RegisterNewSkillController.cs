@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Performetric.API.Services;
-using Performetric.API.Services.Interfaces;
-using Performetric.API; // Caso seus DTOs estejam nesse namespace
-using Performetric.API.Models; // Caso seu model Skill esteja aqui
-using Supabase; // Verifique o namespace correto se necessário
+using Performetric.API.DTOs;
+using Performetric.API.Interfaces;
+
+using Performetric.API;
+using Performetric.API.Models; 
+using Supabase; 
 
 namespace Performetric.API.Controllers;
 

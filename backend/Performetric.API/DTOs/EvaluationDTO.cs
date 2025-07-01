@@ -1,6 +1,6 @@
 using System;
 
-namespace Performetric.API.Services
+namespace Performetric.API.DTOs
 {
   public class EvaluationDTO
 {

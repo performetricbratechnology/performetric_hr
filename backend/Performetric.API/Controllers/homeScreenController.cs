@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Performetric.API.DTOs;
+using Performetric.API.Interfaces;
+
 
 namespace Performetric.API.Controllers
 {

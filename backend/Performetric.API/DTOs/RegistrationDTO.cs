@@ -1,7 +1,7 @@
-using Performetric.API.Services.Interfaces;
+using Performetric.API.Interfaces;
 using System.Text.Json.Serialization;
 
-namespace Performetric.API.Services;
+namespace Performetric.API.DTOs;
 
 public class RegistrationDTO
 {

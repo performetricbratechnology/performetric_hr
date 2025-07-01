@@ -1,7 +1,9 @@
 using Performetric.API.Services;
 using System.Threading.Tasks;
+using Performetric.API.DTOs;
+using Performetric.API.Interfaces;
 
-namespace Performetric.API.Services.Interfaces
+namespace Performetric.API.Interfaces
 {
     public interface ITeamEdit
     {

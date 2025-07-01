@@ -1,6 +1,8 @@
 using Performetric.API.Models;
 using Performetric.API.Controllers;
 using Supabase.Postgrest.Models;
+using Performetric.API.DTOs;
+using Performetric.API.Interfaces;
 using System.Linq;
 using Performetric.API.Models;
 using System;

@@ -1,5 +1,5 @@
-using Performetric.API.Services.Interfaces;
-namespace Performetric.API.Services;
+using Performetric.API.Interfaces;
+namespace Performetric.API.DTOs;
 
 public class RegisterRequestDTO
 {

@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;              // Para ControllerBase, ApiController, Route, HttpPost, IActionResult, FromBody etc.
 using Performetric.API.Services;              // Para AuthService, RegisterRequestDTO, LoginRequestDTO (ajuste o namespace se for diferente)
+using Performetric.API.DTOs;
+using Performetric.API.Interfaces;
+
 
 
 [ApiController]
