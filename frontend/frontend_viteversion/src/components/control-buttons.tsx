@@ -87,9 +87,16 @@ export function ControlButtons({ tab, user, team, skill }: Props) {
               Nenhum usuário selecionado.
             </div>
           )}
-          {tab === "teams" && (
+                {tab === "teams" ? (
+          team ? (
             <ControlTeams team={team} onClose={() => setOpen(false)} />
-          )}
+          ) : (
+            <div className="p-4 text-center text-slate-500">
+              Nenhum time encontrado
+            </div>
+          )
+        ) : null}
+
           {tab === "skills" && (
             <ControlSkill skill={skill} onClose={() => setOpen(false)} />
           )}

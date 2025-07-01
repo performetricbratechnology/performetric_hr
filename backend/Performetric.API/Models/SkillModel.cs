@@ -16,6 +16,12 @@ namespace Performetric.API.Models
         [Column("skill_name")]
         public string SkillName { get; set; }
 
+        [Column("skill_description")]
+        public string SkillDescription { get; set; }
+        [Column("category_id")]
+        public int? CategoryId { get; set; }
+
+
     
     }
 }

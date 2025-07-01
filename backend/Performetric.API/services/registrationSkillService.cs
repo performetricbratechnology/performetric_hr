@@ -1,62 +1,85 @@
 using Microsoft.Extensions.Configuration;
-using Npgsql;
-using Dapper;
-using BCrypt;
+using Performetric.API.Controllers;
+using Performetric.API.Services.Interfaces;
+using Performetric.API.Models;
+using Supabase;
+using Supabase.Postgrest.Models;
+using System.Linq;
+using System;
 namespace Performetric.API.Services
 {
 
-    public class RegistrationSkillService
+    public class RegistrationSkillService : IRegisterService
     {
-        private readonly IConfiguration _configuration;
 
-        public RegistrationSkillService(IConfiguration configuration)
+        private readonly Supabase.Client _supabaseClient;
+
+        public RegistrationSkillService(Supabase.Client supabaseClient)
         {
-            _configuration = configuration;
-        }
-
-        public async Task<List<SkillDTO>> GetAllSkillsAsync()
-        {
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
-            using var connection = new NpgsqlConnection(connectionString);
-            await connection.OpenAsync();
-
-            var query = @"SELECT id, skill_name AS SkillName FROM skills";
-
-            var skills = await connection.QueryAsync<SkillDTO>(query);
-
-            return skills.ToList();
+            _supabaseClient = supabaseClient;
         }
 
 
-        public async Task<bool> RegisterSkillAsync(string skillName)
-        {
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
 
-            using var connection = new NpgsqlConnection(connectionString);
-            await connection.OpenAsync();
+        public async Task<List<SkillDTO>> GetAllSkills()
+{
+            // Busca todas as categorias
+            var categoriesResponse = await _supabaseClient
+                .From<SkillCategory>()
+                .Get();
 
-            var exists = await connection.ExecuteScalarAsync<bool>(
-                "SELECT EXISTS (SELECT 1 FROM skills WHERE skill_name = @SkillName)",
-                new { SkillName = skillName }
-            );
+            var categories = categoriesResponse.Models.ToDictionary(c => c.CategoryId, c => c.CategoryName);
 
-            if (exists)
+            // Busca todas as skills
+            var skillsResponse = await _supabaseClient
+                .From<Skill>()
+                .Get();
+
+            return skillsResponse.Models.Select(s => new SkillDTO
             {
-                Console.WriteLine("Já existe uma skill com este nome.");
+                SkillId = s.SkillId,
+                SkillName = s.SkillName,
+                SkillDescription = s.SkillDescription,
+                CategoryId = s.CategoryId,
+                CategoryName = s.CategoryId != null && categories.ContainsKey(s.CategoryId.Value)
+                    ? categories[s.CategoryId.Value]
+                    : "Sem Categoria"
+            }).ToList();
+        }
+
+
+        public async Task<bool> RegisterSkill(SkillDTO skill)
+        {
+
+            var existing = await _supabaseClient
+                .From<Skill>()
+                .Where(x => x.SkillName == skill.SkillName)
+                .Get();
+
+
+
+            if (existing.Model != null)
+            {
                 return false;
             }
 
-            var query = "INSERT INTO skills (skill_name) VALUES (@SkillName)";
-            
-            var result = await connection.ExecuteAsync(query, new { SkillName = skillName});
 
-            return result > 0;
+            var newSkill = new Skill
+            {
+                SkillId = Guid.NewGuid(),
+                SkillName = skill.SkillName,
+                SkillDescription = skill.SkillDescription,
+                CategoryId = skill.CategoryId
+            };
+
+
+            var response = await _supabaseClient
+                .From<Skill>()
+                .Insert(newSkill);
+
+            return response.Models != null && response.Models.Any();
+
         }
+
     }
-
-
-
-
-
 }

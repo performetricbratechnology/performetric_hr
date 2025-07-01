@@ -9,6 +9,10 @@ namespace Performetric.API.Models
     [Table("teams")]
     public class Team : BaseModel
     {
+        [PrimaryKey("id", false)]
+        [Column("id")]
+        public Guid TeamId { get; set; }
+
         [Column("team_name")]
         public string TeamName { get; set; }
 

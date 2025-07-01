@@ -32,6 +32,7 @@ export type TeamProps = {
   name: string;
   description: string;
   members?: number;
+  team?: string;
 };
 
 export type TProps = {
@@ -57,7 +58,8 @@ export type SProps = {
   skillName: string;
   skill_description: string;
   skillDescription: string;
-  category: string;
+  categoryId: number;
+  categoryName: string;
 };
 
 export type ControlTypes = "users" | "teams" | "skills";

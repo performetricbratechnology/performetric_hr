@@ -22,10 +22,14 @@ builder.Services.AddScoped<Supabase.Client>(_ => new Supabase.Client(
 builder.Services.AddScoped<AuthService>();  // REGISTRE O SERVIÇO AQUI
 builder.Services.AddScoped<RegistrationService>();
 builder.Services.AddScoped<RegistrationTeamService>();
-builder.Services.AddScoped<RegistrationSkillService>();
+builder.Services.AddScoped<IRegisterService, RegistrationSkillService>();
 builder.Services.AddScoped<EvaluationService>();
-builder.Services.AddScoped<RemoveUserService>(); // REGISTRE O SERVIÇO PARA REMOVER USUÁRIO AQUI
-builder.Services.AddScoped<IUserEdit, EditUserService>(); // REGISTRE O SERVIÇO DE EDIÇÃO DE USUÁRIO AQUI
+builder.Services.AddScoped<RemoveUserService>(); // 
+builder.Services.AddScoped<IUserEdit, EditUserService>(); // 
+builder.Services.AddScoped<ITeamEdit, EditTeamService>();
+builder.Services.AddScoped<ISkillEdit, EditSkillService>();
+builder.Services.AddScoped<ISkillCategoryService, SkillCategoryService>();
+
 
 
 builder.Services.AddCors(options =>
