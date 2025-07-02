@@ -1,57 +1,45 @@
 using Microsoft.Extensions.Configuration;
 using Performetric.API.DTOs;
+using Performetric.API.Models;
 using Performetric.API.Interfaces;
-using Npgsql;
-using Dapper;
-using BCrypt;
-namespace Performetric.API.Services
+using Supabase.Postgrest.Models;
+using System.Linq;
+using System;
+
+namespace Performetric.API.Services;
+
+public class AuthService : IAuthService
 {
-    public class AuthService
+    private readonly Supabase.Client _supabaseClient;
+
+    public AuthService(Supabase.Client supabaseClient)
     {
-        private readonly IConfiguration _configuration;
-
-        public AuthService(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
-
-        public async Task<bool> InsertTestUserAsync(string email, string password)
-        {
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
-            var passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
-
-            var connection = new NpgsqlConnection(connectionString);
-            await connection.OpenAsync();
-
-            var query = "INSERT INTO credentialsTest (email, password_id) VALUES (@Email, @PasswordHash)";
-            var parameters = new { Email = email, PasswordHash = passwordHash };
-
-            int rowsInserted = await connection.ExecuteAsync(query, parameters);
-
-            return rowsInserted > 0;
-        }
-
-
-        public async Task<bool> ValidateUserAsync(string email, string password)
-        {
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
-            using var connection = new NpgsqlConnection(connectionString);
-            await connection.OpenAsync();
-
-            var query = "SELECT password_id FROM credentialsTest WHERE email = @Email LIMIT 1";
-
-            var storedHash = await connection.QueryFirstOrDefaultAsync<string>(query, new { Email = email });
-
-            if (string.IsNullOrEmpty(storedHash))
-                return false;
-
-            // Aqui a verificação da senha com o hash armazenado
-            return BCrypt.Net.BCrypt.Verify(password, storedHash);
-        }
-
- 
+        _supabaseClient = supabaseClient;
     }
+
+    public async Task<bool> Authenticate(string mail, string password)
+    {
+        var result = await _supabaseClient
+            .From<User>()
+            .Filter("MailId", Supabase.Postgrest.Constants.Operator.Equals, mail)
+            .Filter("PasswordId", Supabase.Postgrest.Constants.Operator.Equals, password)
+            .Get();
+
+        return result.Models != null && result.Models.Any();
+    }
+
+    public async Task<List<LoginRequestDTO>> GetAllCredentials()
+    {
+        var credentialsResponse = await _supabaseClient
+            .From<User>()
+            .Get();
+
+        return credentialsResponse.Models.Select(c => new LoginRequestDTO
+        {
+            MailId = c.MailId,
+            PasswordId = c.PasswordId
+        }).ToList();
+    }
+    
 }
+
