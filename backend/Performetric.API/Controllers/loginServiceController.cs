@@ -7,7 +7,7 @@ using Performetric.API.Interfaces;
 
 using Performetric.API.Models;
 
-
+/*
 namespace Performetric.API.Controllers
 {
     [ApiController]
@@ -62,3 +62,4 @@ namespace Performetric.API.Controllers
     }
 
 }
+*/
