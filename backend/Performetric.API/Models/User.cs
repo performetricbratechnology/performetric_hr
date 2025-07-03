@@ -9,13 +9,14 @@ namespace Performetric.API.Models
         [PrimaryKey("id", false)]
         public int UserId { get; set; }
 
-        [Column("is_staff")]
-        public bool IsStaff { get; set; }
 
         [Column("mail_id")]
         public string MailId { get; set; }
 
         [Column("password_id")]
         public string PasswordId { get; set; }
+        
+        [Column("is_staff")]
+        public bool IsStaff { get; set; }
     }
 }

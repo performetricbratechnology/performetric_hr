@@ -17,15 +17,15 @@ public class AuthService : IAuthService
         _supabaseClient = supabaseClient;
     }
 
-    public async Task<bool> Authenticate(string mail, string password)
+    public async Task<User?> Authenticate(string mail, string password)
     {
         var result = await _supabaseClient
             .From<User>()
-            .Filter("MailId", Supabase.Postgrest.Constants.Operator.Equals, mail)
-            .Filter("PasswordId", Supabase.Postgrest.Constants.Operator.Equals, password)
+            .Filter("mail_id", Supabase.Postgrest.Constants.Operator.Equals, mail)
+            .Filter("password_id", Supabase.Postgrest.Constants.Operator.Equals, password)
             .Get();
 
-        return result.Models != null && result.Models.Any();
+             return result.Models?.FirstOrDefault();
     }
 
     public async Task<List<LoginRequestDTO>> GetAllCredentials()

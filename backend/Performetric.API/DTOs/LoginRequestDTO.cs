@@ -4,10 +4,10 @@ namespace Performetric.API.DTOs;
 
 public class LoginRequestDTO
 {
-    [JsonPropertyName("mailId")]
+    [JsonPropertyName("mail_id")]
     public string MailId { get; set; }
 
-    [JsonPropertyName("passwordId")]
+    [JsonPropertyName("password_id")]
     public string PasswordId { get; set; }
     
 }
