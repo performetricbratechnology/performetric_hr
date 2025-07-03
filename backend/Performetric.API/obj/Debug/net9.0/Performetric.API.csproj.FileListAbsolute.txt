@@ -68,6 +68,7 @@ C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9
 C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9.0\Performetric.API.pdb
 C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9.0\BCrypt.Net-Next.dll
 C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9.0\Dapper.dll
+C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9.0\Microsoft.Extensions.Configuration.dll
 C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
@@ -80,6 +81,8 @@ C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9
 C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
 C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9.0\Microsoft.IO.RecyclableMemoryStream.dll
 C:\Users\darri\Documents\Performetric HR\backend\Performetric.API\bin\Debug\net9.0\Microsoft.OpenApi.dll
